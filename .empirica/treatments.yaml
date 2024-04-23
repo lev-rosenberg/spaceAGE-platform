@@ -1,0 +1,23 @@
+factors:
+  - desc: playerCount determines the number of Players are in a Game.
+    name: playerCount
+    values:
+      - value: 4
+      - value: 5
+      - value: 6
+      - value: 7
+      - value: 8
+
+treatments:
+  - desc: "4-player Game"
+    factors:
+      playerCount: 4
+    name: 4 players
+  - desc: "5-player Game"
+    factors:
+      playerCount: 5
+    name: 5 players
+  - desc: "6-player Game"
+    factors:
+      playerCount: 6
+    name: 6 players

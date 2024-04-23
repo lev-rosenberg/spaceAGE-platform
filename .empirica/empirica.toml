@@ -1,0 +1,9 @@
+name = "spaceage_experiment_red"
+
+[tajriba.auth]
+srtoken = "FJaUgUrkWOKgyrkG"
+
+[[tajriba.auth.users]]
+name = "Admin"
+username = "admin"
+password = "pxunTywk"
