@@ -7,17 +7,32 @@ factors:
       - value: 6
       - value: 7
       - value: 8
+  - desc: interventionPlacement determines after which stage we will introduce AI intervention.
+    name: interventionPlacement
+    values:
+      - value: "individual"
+      - value: "team"
+      - value: "MTS"
 
 treatments:
-  - desc: "4-player Game"
+  - desc: "4-player game, AI after the individual stage"
     factors:
       playerCount: 4
-    name: 4 players
-  - desc: "5-player Game"
+      interventionPlacement: "individual"
+    name: 4 players, AI post-individual
+  - desc: "4-player game, AI after the team stage"
     factors:
-      playerCount: 5
-    name: 5 players
-  - desc: "6-player Game"
+      playerCount: 4
+      interventionPlacement: "team"
+    name: 4 players, AI post-team
+  - desc: "4-player game, AI after the MTS stage"
     factors:
-      playerCount: 6
-    name: 6 players
+      playerCount: 4
+      interventionPlacement: "MTS"
+    name: 4 players, AI post-MTS
+
+  #
+  #
+  # TODO: Add the other playeCounts and interventionPlacement treatment combinations
+  #
+  #
