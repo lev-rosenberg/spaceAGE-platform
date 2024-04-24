@@ -1,27 +1,27 @@
 import {
   usePlayer,
   useRound,
-  useStage,
-} from "@empirica/core/player/classic/react";
-import React from "react";
-import { Avatar } from "./components/Avatar";
-import { Timer } from "./components/Timer";
+  useStage
+} from '@empirica/core/player/classic/react'
+import React from 'react'
+import { Avatar } from './components/Avatar'
+import { Timer } from './components/Timer'
 
-export function Profile() {
-  const player = usePlayer();
-  const round = useRound();
-  const stage = useStage();
+export function Profile () {
+  const player = usePlayer()
+  const round = useRound()
+  const stage = useStage()
 
-  const score = player.get("score") || 0;
+  const score = player.get('score') || 0
 
   return (
     <div className="min-w-lg md:min-w-2xl mt-2 m-x-auto px-3 py-2 text-gray-500 rounded-md grid grid-cols-3 items-center border-.5">
       <div className="leading-tight ml-1">
         <div className="text-gray-600 font-semibold">
-          {round ? round.get("name") : ""}
+          {round ? round.get('name') : ''}
         </div>
         <div className="text-empirica-500 font-medium">
-          {stage ? stage.get("name") : ""}
+          {stage ? stage.get('name') : ''}
         </div>
       </div>
 
@@ -41,5 +41,5 @@ export function Profile() {
         </div>
       </div>
     </div>
-  );
+  )
 }

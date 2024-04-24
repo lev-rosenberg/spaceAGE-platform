@@ -1,5 +1,5 @@
-{"version":"v1.9.6","sha":"12939cc","build":"193","tag":"v1.9.6","branch":"main","time":"2024-02-11T10:58:50Z"}
+{"version":"v1.11.2","sha":"0cf63f4","build":"216","tag":"v1.11.2","branch":"main","time":"2024-04-21T05:45:28Z"}
 {"version":0,"format":"JSON","compression":"NoCompression"}
-{"kind":"Service","obj":{"id":"01HW6ANWBDSEY14AR1TM2ETZJY","name":"system","createdAt":"2024-04-23T15:34:40.621121-05:00"}}
-{"kind":"Scope","obj":{"id":"01HW6ANWBDSEY14AR1TPVDYDQN","name":"global","kind":"global","createdAt":"2024-04-23T15:34:40.621753-05:00","createdByID":"01HW6ANWBDSEY14AR1TM2ETZJY"}}
-{"kind":"User","obj":{"id":"01HW6ANWBDSEY14AR1TQNSWQ46","name":"Admin","username":"admin","createdAt":"2024-04-23T15:34:40.621831-05:00"}}
+{"kind":"Service","obj":{"id":"01HW6V531DZJP81KZG73D2DWVA","name":"system","createdAt":"2024-04-23T20:22:36.205971-05:00"}}
+{"kind":"Scope","obj":{"id":"01HW6V531E6TSW69RF7Z8DN9QE","name":"global","kind":"global","createdAt":"2024-04-23T20:22:36.206367-05:00","createdByID":"01HW6V531DZJP81KZG73D2DWVA"}}
+{"kind":"User","obj":{"id":"01HW6V531E6TSW69RF7ZRHHVQ4","name":"Admin","username":"admin","createdAt":"2024-04-23T20:22:36.206406-05:00"}}

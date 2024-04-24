@@ -1,24 +1,24 @@
-import { EmpiricaClassic } from "@empirica/core/player/classic";
-import { EmpiricaContext } from "@empirica/core/player/classic/react";
-import { EmpiricaMenu, EmpiricaParticipant } from "@empirica/core/player/react";
-import React from "react";
-import { Game } from "./Game";
-import { ExitSurvey } from "./intro-exit/ExitSurvey";
-import { Introduction } from "./intro-exit/Introduction";
+import { EmpiricaClassic } from '@empirica/core/player/classic'
+import { EmpiricaContext } from '@empirica/core/player/classic/react'
+import { EmpiricaMenu, EmpiricaParticipant } from '@empirica/core/player/react'
+import React from 'react'
+import { Game } from './Game'
+import { ExitSurvey } from './intro-exit/ExitSurvey'
+import { Introduction } from './intro-exit/Introduction'
 
-export default function App() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const playerKey = urlParams.get("participantKey") || "";
+export default function App () {
+  const urlParams = new URLSearchParams(window.location.search)
+  const playerKey = urlParams.get('participantKey') || ''
 
-  const { protocol, host } = window.location;
-  const url = `${protocol}//${host}/query`;
+  const { protocol, host } = window.location
+  const url = `${protocol}//${host}/query`
 
-  function introSteps({ game, player }) {
-    return [Introduction];
+  function introSteps ({ game, player }) {
+    return [Introduction]
   }
 
-  function exitSteps({ game, player }) {
-    return [ExitSurvey];
+  function exitSteps ({ game, player }) {
+    return [ExitSurvey]
   }
 
   return (
@@ -32,5 +32,5 @@ export default function App() {
         </div>
       </div>
     </EmpiricaParticipant>
-  );
+  )
 }

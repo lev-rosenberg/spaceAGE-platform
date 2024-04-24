@@ -1,12 +1,12 @@
-import { useStageTimer } from "@empirica/core/player/classic/react";
-import React from "react";
+import { useStageTimer } from '@empirica/core/player/classic/react'
+import React from 'react'
 
-export function Timer() {
-  const timer = useStageTimer();
+export function Timer () {
+  const timer = useStageTimer()
 
-  let remaining;
+  let remaining
   if (timer?.remaining || timer?.remaining === 0) {
-    remaining = Math.round(timer?.remaining / 1000);
+    remaining = Math.round(timer?.remaining / 1000)
   }
 
   return (
@@ -15,30 +15,30 @@ export function Timer() {
         {humanTimer(remaining)}
       </h1>
     </div>
-  );
+  )
 }
 
-function humanTimer(seconds) {
+function humanTimer (seconds) {
   if (seconds === null || seconds === undefined) {
-    return "--:--";
+    return '--:--'
   }
 
-  let out = "";
-  const s = seconds % 60;
-  out += s < 10 ? "0" + s : s;
+  let out = ''
+  const s = seconds % 60
+  out += s < 10 ? '0' + s : s
 
-  const min = (seconds - s) / 60;
+  const min = (seconds - s) / 60
   if (min === 0) {
-    return `00:${out}`;
+    return `00:${out}`
   }
 
-  const m = min % 60;
-  out = `${m < 10 ? "0" + m : m}:${out}`;
+  const m = min % 60
+  out = `${m < 10 ? '0' + m : m}:${out}`
 
-  const h = (min - m) / 60;
+  const h = (min - m) / 60
   if (h === 0) {
-    return out;
+    return out
   }
 
-  return `${h}:${out}`;
+  return `${h}:${out}`
 }

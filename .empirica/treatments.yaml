@@ -12,7 +12,7 @@ factors:
     values:
       - value: "individual"
       - value: "team"
-      - value: "MTS"
+      - value: "mts"
 
 treatments:
   - desc: "4-player game, AI after the individual stage"
@@ -28,7 +28,7 @@ treatments:
   - desc: "4-player game, AI after the MTS stage"
     factors:
       playerCount: 4
-      interventionPlacement: "MTS"
+      interventionPlacement: "mts"
     name: 4 players, AI post-MTS
 
   #

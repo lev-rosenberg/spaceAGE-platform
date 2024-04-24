@@ -1,12 +1,12 @@
-import { Chat, useGame } from "@empirica/core/player/classic/react";
+import { Chat, useGame } from '@empirica/core/player/classic/react'
 
-import React from "react";
-import { Profile } from "./Profile";
-import { Stage } from "./Stage";
+import React from 'react'
+import { Profile } from './Profile'
+import { Stage } from './Stage'
 
-export function Game() {
-  const game = useGame();
-  const { playerCount } = game.get("treatment");
+export function Game () {
+  const game = useGame()
+  const { playerCount } = game.get('treatment')
 
   return (
     <div className="h-full w-full flex">
@@ -23,5 +23,5 @@ export function Game() {
         </div>
       )}
     </div>
-  );
+  )
 }
