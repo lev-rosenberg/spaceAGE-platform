@@ -5,8 +5,6 @@ factors:
       - value: 4
       - value: 5
       - value: 6
-      - value: 7
-      - value: 8
   - desc: interventionPlacement determines after which stage we will introduce AI intervention.
     name: interventionPlacement
     values:
@@ -33,6 +31,6 @@ treatments:
 
   #
   #
-  # TODO: Add the other playeCounts and interventionPlacement treatment combinations
+  # TODO: Add the other playerCounts and interventionPlacement treatment combinations
   #
   #

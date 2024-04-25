@@ -17,25 +17,23 @@ Empirica.onGameStart(({ game }) => {
   round.addStage({ name: 'mts-ranking', duration: 600 })
   if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'mts', duration: 600 })
 
-  // Assign each player a role and set their rankings for the individual and team stages.
-  const possibleRoles = ['Water Specialist', 'Terrain Specialist', 'Atmospheric Specialist', 'Biology Specialist', 'Climate Scientist', 'Technology']
+  // Assign each player a role, and a team.
+  // And set their rankings for the individual and team stages.
+  // By altenating specialist and scientist roles in the list, we ensure that the teams are balanced.
+  const possibleRoles = ['Water Specialist', 'Geology Scientist', 'Atmospheric Specialist', 'Climate Scientist', 'Terrain Specialist', 'Life Scientist']
   const players = game.players
-  for (const player of players) {
-    const role = possibleRoles.pop()
-    player.set('role', role)
-    player.set('individual-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
-    player.set('team-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
+  for (let i = 0; i < players.length; i++) {
+    const role = possibleRoles[i]
+    players[i].set('role', role)
+    if (role.split(' ')[1] === 'Specialist') {
+      players[i].set('team', 'Planetary Geology Team')
+    } else {
+      players[i].set('team', 'Space Human Factors')
+    }
+    players[i].set('individual-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
+    players[i].set('team-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
   }
-
-  // Assign each player to a team.
-  // Currently this is just teams of 2. This will need to be updated when I talk to Sevan about the team size.
-  for (let i = 0; i < players.length; i += 2) {
-    const teamName = players[i].get('role') + '-' + players[i + 1].get('role')
-    players[i].set('team', teamName)
-    players[i + 1].set('team', teamName)
-  }
-
-  // Set the shared mts ranking
+  // We set the mts ranking outside of the loop, because it is the same for all players.
   round.set('mts-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
 })
 
