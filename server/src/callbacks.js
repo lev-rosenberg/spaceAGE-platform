@@ -9,13 +9,13 @@ Empirica.onGameStart(({ game }) => {
   // We only want one round, filled with 6 stages. AI intervention placement depends on the treatment condition.
   const round = game.addRound({ name: 'Round' })
   // round.addStage({ name: 'walkthrough', duration: 120 })
-  round.addStage({ name: 'role-exploration', duration: 600 })
-  round.addStage({ name: 'individual-ranking', duration: 600 })
-  if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'individual', duration: 600 })
-  round.addStage({ name: 'team-ranking', duration: 600 })
-  if (interventionPlacement === 'team') round.addStage({ name: 'intervention', placement: 'team', duration: 600 })
-  round.addStage({ name: 'mts-ranking', duration: 600 })
-  if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'mts', duration: 600 })
+  round.addStage({ name: 'Role Exploration', duration: 6000 })
+  round.addStage({ name: 'Individual Ranking', duration: 600 })
+  if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 600 })
+  round.addStage({ name: 'Team Ranking', duration: 600 })
+  if (interventionPlacement === 'team') round.addStage({ name: 'intervention', placement: 'Team Ranking', duration: 600 })
+  round.addStage({ name: 'Multi-Team Ranking', duration: 600 })
+  if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'Multi-Team Ranking', duration: 600 })
 
   // Assign each player a role, and a team.
   // And set their rankings for the individual and team stages.
