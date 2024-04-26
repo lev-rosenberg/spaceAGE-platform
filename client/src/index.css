@@ -11,3 +11,53 @@
     -moz-appearance: textfield;
   }
 }
+
+:root {
+  --bg-dark-grey: #202020;
+  --accent-blue: #237fe1;
+  --primary-white: #f8f8f8;
+}
+
+body {
+  background-color: var(--bg-dark-grey);
+  color: var(--primary-white);
+  font-family: 'Fira Code', monospace;
+}
+
+main {
+  margin: 1rem 3rem 3rem 3rem;
+}
+
+h1 {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+p {
+  font-size: 12px;
+}
+
+.map {
+  background-image: url("./public/mars-atlas.png");
+  background-size: contain;
+  border-radius: 6px;
+}
+
+main.blue {
+  background-color: var(--accent-blue);
+}
+
+.grey-bg-border-btm {
+  background-color: var(--bg-dark-grey);
+  border-bottom: 1px solid var(--primary-white);
+}

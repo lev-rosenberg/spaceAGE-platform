@@ -6,7 +6,10 @@ import {
 } from '@empirica/core/player/classic/react'
 import { Loading } from '@empirica/core/player/react'
 import React from 'react'
-
+import { InstructionsStage } from './stages/InstructionsStage'
+import { RoleExploration } from './stages/RoleExploration'
+import { RankingTask } from './stages/RankingTask'
+import { StageInstructions } from './components/StageInstructions'
 export function Stage () {
   const player = usePlayer()
   const players = usePlayers()
@@ -28,5 +31,29 @@ export function Stage () {
     )
   }
 
-  return (<p>Not yet implemented...</p>)
+  const CurrentStage = () => {
+    switch (stage.get('name')) {
+      case 'Instructions':
+        return <InstructionsStage />
+      case 'Role Exploration':
+        return <RoleExploration />
+      case 'Individual Ranking':
+        return <RankingTask />
+      case 'Team Ranking':
+        return <RankingTask />
+      case 'Multi-Team Ranking':
+        return <RankingTask />
+      default:
+        return <Loading />
+    }
+  }
+
+  return (
+    <>
+      <StageInstructions />
+      <div className="map w-full h-full flex py-2 px-2">
+        <CurrentStage />
+      </div>
+    </>
+  )
 }
