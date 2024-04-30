@@ -18,6 +18,7 @@ export function Stage () {
   console.log(stage.get('name'))
   console.log('role:', player.get('role'))
   console.log('team:', player.get('team'))
+  console.log('name:', player.get('name'))
 
   if (player.stage.get('submit')) {
     if (players.length === 1) {

@@ -19,6 +19,7 @@ export default function App () {
   }
 
   function exitSteps ({ game, player }) {
+    localStorage.removeItem(`name-${player.get('participantIdentifier')}`)
     return [ExitSurvey]
   }
 

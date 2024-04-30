@@ -11,10 +11,11 @@ export function MyPlayerForm ({ onPlayerID, connecting }) {
   // Handling the player submitting their ID.
   const handleSubmit = (evt) => {
     evt.preventDefault()
-    if (!playerName || playerName.trim() === '') {
+    if (!playerID || playerID.trim() === '' || !playerName || playerName.trim() === '') {
       return
     }
-    onPlayerID(playerName)
+    onPlayerID(playerID)
+    localStorage.setItem(`name-${playerID}`, playerName)
   }
 
   return (

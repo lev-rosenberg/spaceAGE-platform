@@ -1,47 +1,48 @@
-import { usePlayer } from "@empirica/core/player/classic/react";
-import React, { useState } from "react";
-import { Alert } from "../components/Alert";
-import { Button } from "../components/Button";
+/* eslint-disable react/prop-types */
+import { usePlayer } from '@empirica/core/player/classic/react'
+import React, { useState } from 'react'
+import { Alert } from '../components/Alert'
+import { Button } from '../components/Button'
 
-export function ExitSurvey({ next }) {
-  const labelClassName = "block text-sm font-medium text-gray-700 my-2";
+export function ExitSurvey ({ next }) {
+  const labelClassName = 'block text-sm font-medium text-gray-700 my-2'
   const inputClassName =
-    "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-empirica-500 focus:border-empirica-500 sm:text-sm";
-  const player = usePlayer();
+    'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-empirica-500 focus:border-empirica-500 sm:text-sm'
+  const player = usePlayer()
 
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [strength, setStrength] = useState("");
-  const [fair, setFair] = useState("");
-  const [feedback, setFeedback] = useState("");
-  const [education, setEducation] = useState("");
+  const [age, setAge] = useState('')
+  const [gender, setGender] = useState('')
+  const [strength, setStrength] = useState('')
+  const [fair, setFair] = useState('')
+  const [feedback, setFeedback] = useState('')
+  const [education, setEducation] = useState('')
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    player.set("exitSurvey", {
+  function handleSubmit (event) {
+    event.preventDefault()
+    player.set('exitSurvey', {
       age,
       gender,
       strength,
       fair,
       feedback,
-      education,
-    });
-    next();
+      education
+    })
+    next()
   }
 
-  function handleEducationChange(e) {
-    setEducation(e.target.value);
+  function handleEducationChange (e) {
+    setEducation(e.target.value)
   }
 
   return (
     <div className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <Alert title="Bonus">
         <p>
-          Please submit the following code to receive your bonus:{" "}
+          Please submit the following code to receive your bonus:{' '}
           <strong>{player.id}</strong>.
         </p>
         <p className="pt-1">
-          Your final <strong>bonus</strong> is in addition of the{" "}
+          Your final <strong>bonus</strong> is in addition of the{' '}
           <strong>1 base reward</strong> for completing the HIT.
         </p>
       </Alert>
@@ -185,10 +186,10 @@ export function ExitSurvey({ next }) {
         </div>
       </form>
     </div>
-  );
+  )
 }
 
-export function Radio({ selected, name, value, label, onChange }) {
+export function Radio ({ selected, name, value, label, onChange }) {
   return (
     <label className="text-sm font-medium text-gray-700">
       <input
@@ -201,5 +202,5 @@ export function Radio({ selected, name, value, label, onChange }) {
       />
       {label}
     </label>
-  );
+  )
 }

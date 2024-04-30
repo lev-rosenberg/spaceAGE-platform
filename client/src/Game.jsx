@@ -1,13 +1,20 @@
-import { Chat, useGame, useStage } from '@empirica/core/player/classic/react'
+import { Chat, useGame, usePlayer, useStage } from '@empirica/core/player/classic/react'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Profile } from './Profile'
 import { Stage } from './Stage'
 
 export function Game () {
   const game = useGame()
   const stage = useStage()
+  const player = usePlayer()
   const { playerCount } = game.get('treatment')
+
+  useEffect(() => {
+    // Set the player's name from the localStorage
+    const name = localStorage.getItem(`name-${player.get('participantIdentifier')}`)
+    player.set('name', name)
+  }, [])
 
   return (
     <div className="h-full w-full flex">
