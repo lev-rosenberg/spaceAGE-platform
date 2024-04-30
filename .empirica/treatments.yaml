@@ -19,7 +19,6 @@ factors:
       - value: "chat"
       - value: "wizard"
       - value: "popup"
-
 treatments:
   - desc: "4-player game, popup AI after the individual stage"
     factors:
@@ -33,12 +32,12 @@ treatments:
       interventionPlacement: "team"
       aiVariation: "chat"
     name: 4 players, chat AI post-team
-  - desc: "4-player game, wizard AI after the MTS stage"
+  - desc: "8-player game, 2 of which are wizard AI after the MTS stage"
     factors:
-      playerCount: 4
+      playerCount: 8
       interventionPlacement: "mts"
       aiVariation: "wizard"
-    name: 4 players, wizard AI post-MTS
+    name: 8 players, wizard AI post-MTS
 
   #
   #
