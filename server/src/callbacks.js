@@ -21,8 +21,10 @@ Empirica.onGameStart(({ game }) => {
   // And set their rankings for the individual and team stages.
   // By altenating specialist and scientist roles in the list, we ensure that the teams are balanced.
   const possibleRoles = ['Water Specialist', 'Geology Scientist', 'Atmospheric Specialist', 'Climate Scientist', 'Terrain Specialist', 'Life Scientist']
+  // before this loop, get the player/s that are fake AI from partipant ID. player.get("participantIdentifier")). and assign them to like AI Scientist or AI Specialist
   const players = game.players
   for (let i = 0; i < players.length; i++) {
+    i = i % possibleRoles.length // loop back through the begining
     const role = possibleRoles[i]
     players[i].set('role', role)
     if (role.split(' ')[1] === 'Specialist') {
@@ -34,6 +36,7 @@ Empirica.onGameStart(({ game }) => {
     players[i].set('team-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
   }
   // We set the mts ranking outside of the loop, because it is the same for all players.
+  // stage.set('Space Human Factors', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
   round.set('mts-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
 })
 

@@ -1,0 +1,19 @@
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  background: linear-gradient(black, #747474);
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  margin: 2rem;
+  background-color: var(--bg-dark-grey);
+  width: 30rem;
+  height: fit-content;
+  gap: 1rem;
+}

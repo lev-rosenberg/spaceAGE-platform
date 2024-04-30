@@ -5,32 +5,44 @@ factors:
       - value: 4
       - value: 5
       - value: 6
+      - value: 7
+      - value: 8
   - desc: interventionPlacement determines after which stage we will introduce AI intervention.
     name: interventionPlacement
     values:
       - value: "individual"
       - value: "team"
       - value: "mts"
+  - desc: aiVariation determines the type of AI intervention.
+    name: aiVariation
+    values:
+      - value: "chat"
+      - value: "wizard"
+      - value: "popup"
 
 treatments:
-  - desc: "4-player game, AI after the individual stage"
+  - desc: "4-player game, popup AI after the individual stage"
     factors:
       playerCount: 4
       interventionPlacement: "individual"
-    name: 4 players, AI post-individual
-  - desc: "4-player game, AI after the team stage"
+      aiVariation: "popup"
+    name: 4 players, popup AI post-individual
+  - desc: "4-player game, chat AI after the team stage"
     factors:
       playerCount: 4
       interventionPlacement: "team"
-    name: 4 players, AI post-team
-  - desc: "4-player game, AI after the MTS stage"
+      aiVariation: "chat"
+    name: 4 players, chat AI post-team
+  - desc: "4-player game, wizard AI after the MTS stage"
     factors:
       playerCount: 4
       interventionPlacement: "mts"
-    name: 4 players, AI post-MTS
+      aiVariation: "wizard"
+    name: 4 players, wizard AI post-MTS
 
   #
   #
-  # TODO: Add the other playerCounts and interventionPlacement treatment combinations
-  #
-  #
+  # TODO:
+  # 1. Add the other playerCounts and interventionPlacement treatment combinations
+  # 2. Add AI variation (chat, wizard of oz, popup)
+  # 2. a) for wizard of oz: assign them to AI based on participant identifier

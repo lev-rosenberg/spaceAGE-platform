@@ -31,24 +31,34 @@ main {
 h1 {
   font-size: 25px;
   font-weight: 700;
+  color: var(--primary-white);
 }
 
 h2 {
   font-size: 18px;
   font-weight: 700;
+  color: var(--primary-white);
 }
 
 h3 {
   font-size: 15px;
   font-weight: 700;
+  color: var(--primary-white);
 }
 
 p {
   font-size: 12px;
+  font-weight: 400;
+  color: var(--primary-white);
+}
+
+label {
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .map {
-  background-image: url("./public/mars-atlas.png");
+  background-image: url("./mars-atlas.png");
   background-size: contain;
   border-radius: 6px;
 }
@@ -59,5 +69,24 @@ main.blue {
 
 .grey-bg-border-btm {
   background-color: var(--bg-dark-grey);
-  border-bottom: 1px solid var(--primary-white);
+  border-bottom: 3px solid var(--primary-white);
+}
+
+input[type="text"], textarea {
+  background-color: var(--bg-dark-grey);
+  outline: none;
+  padding: 0.5rem;
+  border: 1px solid var(--primary-white);
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+  font-size: 12px;
+}
+
+input[type="text"]:focus, textarea:focus {
+  border: 1px solid var(--accent-blue);
+}
+
+section {
+  border-bottom: 3px solid var(--primary-white);
 }
