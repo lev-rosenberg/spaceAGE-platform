@@ -46,11 +46,10 @@ export function MyPlayerForm ({ onPlayerID, connecting }) {
                   required
                   value={playerID}
                   handleChange={(e) => setPlayerID(e.target.value)}
-                  autoFocus
                   placeholder="This should be given to you. e.g. email, code..."
                 />
               </div>
-              <button type="submit" className='p-0.5rem text-empirica-darkgrey'>Enter</button>
+              <button type="submit">Enter</button>
               </section>
           </fieldset>
         </form>

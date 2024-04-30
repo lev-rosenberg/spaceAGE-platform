@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100dvh;
-  background: linear-gradient(black, #747474);
+  background-color: var(--primary-white);
 }
 
 .loginForm {
@@ -16,4 +16,20 @@
   width: 30rem;
   height: fit-content;
   gap: 1rem;
+}
+
+.loginContainer p, .loginContainer h1 {
+  color: var(--bg-dark-grey);
+}
+
+.loginContainer button {
+  color: var(--bg-dark-grey);
+  font-size: 12px;
+  padding: 0.5rem;
+  transition: 0.1s all;
+  line-height: 1.5rem;
+}
+
+.loginContainer button:hover {
+  background-color: rgb(200, 200, 200);
 }
