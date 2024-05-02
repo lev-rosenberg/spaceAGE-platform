@@ -21,8 +21,8 @@ export function StageInstructions () {
     }
   }
   return (
-    <div>
-      <Button>Instructions</Button>
+    <div className='flex flex-col gap-2 mb-3'>
+      <Button primary>Instructions</Button>
       <h1>{currentStage}</h1>
       <p>
         <CurrentStageInstructions />

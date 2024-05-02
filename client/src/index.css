@@ -13,19 +13,21 @@
 }
 
 :root {
-  --bg-dark-grey: #202020;
+  --dark-grey: #202020;
   --accent-blue: #237fe1;
   --primary-white: #f8f8f8;
+  --light-grey: #7E7E7E;
 }
 
 body {
-  background-color: var(--bg-dark-grey);
+  background-color: var(--dark-grey);
   color: var(--primary-white);
   font-family: 'Fira Code', monospace;
 }
 
 main {
-  margin: 1rem 3rem 3rem 3rem;
+  border-radius: 6px;
+  border: 1px solid var(--primary-white);
 }
 
 h1 {
@@ -52,15 +54,42 @@ p {
   color: var(--primary-white);
 }
 
+button {
+  background-color: var(--primary-white);
+  width: fit-content;
+  padding: 0.5rem 1.3rem;
+  transition: all 0.05s ease-in-out;
+}
+
+button.prim {
+  color: var(--accent-blue);
+  font-weight: 700;
+  box-shadow: 3px 3px 0 0 var(--accent-blue);
+}
+
+button.sec {
+  box-shadow: 3px 3px 0 0 var(--dark-grey);
+}
+
+button:hover {
+  translate: -1px -1px;
+  box-shadow: 4px 4px 0 0 var(--accent-blue);
+}
+
+button:active {
+  translate: 3px 3px;
+  background-color: var(--light-grey);
+  box-shadow: none;
+  color: var(--primary-white);
+}
+
+button:focus {
+  outline: none;
+}
+
 label {
   font-size: 12px;
   font-weight: 700;
-}
-
-.map {
-  background-image: url("./mars-atlas.png");
-  background-size: contain;
-  border-radius: 6px;
 }
 
 main.blue {
@@ -68,18 +97,21 @@ main.blue {
 }
 
 .grey-bg-border-btm {
-  background-color: var(--bg-dark-grey);
+  background-color: var(--dark-grey);
   border-bottom: 3px solid var(--primary-white);
 }
 
 input[type="text"], textarea {
-  background-color: var(--bg-dark-grey);
-  outline: none;
-  padding: 0.5rem;
-  border: 1px solid var(--primary-white);
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+input[type="text"].prim, textarea.prim {
+  background-color: var(--dark-grey);
+  outline: none;
+  padding: 0.5rem;
+  border: 1px solid var(--primary-white);
   font-size: 12px;
 }
 
@@ -87,6 +119,13 @@ input[type="text"]:focus, textarea:focus {
   border: 1px solid var(--accent-blue);
 }
 
+
 section {
   border-bottom: 3px solid var(--primary-white);
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

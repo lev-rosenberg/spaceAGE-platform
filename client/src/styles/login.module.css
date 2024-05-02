@@ -12,24 +12,27 @@
   flex-direction: column;
   padding: 3rem;
   margin: 2rem;
-  background-color: var(--bg-dark-grey);
+  background-color: var(--dark-grey);
   width: 30rem;
   height: fit-content;
   gap: 1rem;
 }
 
 .loginContainer p, .loginContainer h1 {
-  color: var(--bg-dark-grey);
+  color: var(--dark-grey);
 }
 
 .loginContainer button {
-  color: var(--bg-dark-grey);
+  color: var(--dark-grey);
   font-size: 12px;
   padding: 0.5rem;
   transition: 0.1s all;
   line-height: 1.5rem;
+  width: 100%;
 }
 
 .loginContainer button:hover {
   background-color: rgb(200, 200, 200);
+  box-shadow: none;
+  translate: none;
 }

@@ -1,13 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 
-const base =
-  'bg-dark-grey outline-none p-2 border border-primary-white box-border text-xs"'
-const prim =
-  ''
-const sec =
-  ''
-
 // Remove the duplicate import statement for React
 // import React from 'react';
 
@@ -35,7 +28,7 @@ export function TextInput ({
       autoFocus = {autoFocus}
       value={value}
       onChange={handleChange}
-      className={`${base} ${primary ? prim : sec} ${className}`}
+      className={`${primary ? 'prim' : 'sec'} ${className}`}
       placeholder = {placeholder}
     >
       {children}
