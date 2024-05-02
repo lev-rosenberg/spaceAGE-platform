@@ -2,8 +2,8 @@ import React from 'react'
 
 export function RoleExploration () {
   return (
-    <div>
-      RoleExploration not yet implemented...
-    </div>
+    <>
+      <img src="mars-atlas.png" alt="placeholder" />
+    </>
   )
 }

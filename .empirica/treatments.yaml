@@ -32,9 +32,15 @@ treatments:
       interventionPlacement: "team"
       aiVariation: "chat"
     name: 4 players, chat AI post-team
-  - desc: "8-player game, 2 of which are wizard AI after the MTS stage"
+  - desc: "8-player game, 2 of which are wizard AI after the team stage"
     factors:
       playerCount: 8
+      interventionPlacement: "team"
+      aiVariation: "wizard"
+    name: 8 players, wizard AI post-team
+  - desc: "7-player game, 2 of which are wizard AI after the MTS stage"
+    factors:
+      playerCount: 7
       interventionPlacement: "mts"
       aiVariation: "wizard"
     name: 8 players, wizard AI post-MTS

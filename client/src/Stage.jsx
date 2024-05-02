@@ -15,10 +15,6 @@ export function Stage () {
   const players = usePlayers()
   // const round = useRound()
   const stage = useStage()
-  console.log(stage.get('name'))
-  console.log('role:', player.get('role'))
-  console.log('team:', player.get('team'))
-  console.log('name:', player.get('name'))
 
   if (player.stage.get('submit')) {
     if (players.length === 1) {
@@ -26,7 +22,7 @@ export function Stage () {
     }
 
     return (
-      <div className="text-center text-gray-400 pointer-events-none">
+      <div className="text-center text-white pointer-events-none">
         Please wait for other player(s).
       </div>
     )
@@ -50,11 +46,11 @@ export function Stage () {
   }
 
   return (
-    <>
+    <div className="h-full flex flex-col m-12 mt-1 ">
       <StageInstructions />
-      <div className="map w-full h-full flex py-2 px-2">
+      <main className="experiment-content w-full h-full flex">
         <CurrentStage />
-      </div>
-    </>
+      </main>
+    </div>
   )
 }

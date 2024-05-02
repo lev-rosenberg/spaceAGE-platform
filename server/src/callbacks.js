@@ -18,8 +18,8 @@ Empirica.onGameStart(({ game }) => {
 
   // 1: Create the round and stages
   const round = game.addRound({ name: 'Round' })
-  round.addStage({ name: 'Walkthrough', duration: 120 })
-  round.addStage({ name: 'Instructions', duration: 6000 })
+  // round.addStage({ name: 'Walkthrough', duration: 120 })
+  round.addStage({ name: 'Instructions', duration: 120 })
   round.addStage({ name: 'Role Exploration', duration: 6000 })
   round.addStage({ name: 'Individual Ranking', duration: 600 })
   if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 600 })
@@ -28,13 +28,13 @@ Empirica.onGameStart(({ game }) => {
   round.addStage({ name: 'Multi-Team Ranking', duration: 600 })
   if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'Multi-Team Ranking', duration: 600 })
 
-  // 2: Assign roles and teams
+  // 2: Assign roles and teams.
   const possibleRoles = ['Water Specialist', 'Geology Scientist', 'Atmospheric Specialist', 'Climate Scientist', 'Terrain Specialist', 'Life Scientist']
   const aiRoles = ['AI Specialist', 'AI Scientist'] // only used if aiVariation === 'wizard'
   const players = game.players
   for (const player of players) {
     let role
-    if (aiVariation === 'wizard' && player.get('participantIdentifier').includes('AI')) {
+    if (aiVariation === 'wizard' && player.get('participantIdentifier').includes('AI-WIZARD')) { //
       role = aiRoles.pop()
       player.set('role', role)
     } else {

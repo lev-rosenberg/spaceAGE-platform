@@ -1,7 +1,5 @@
 import {
-  usePlayer,
-  useRound,
-  useStage
+  usePlayer
 } from '@empirica/core/player/classic/react'
 import React from 'react'
 import { Avatar } from './components/Avatar'
@@ -9,10 +7,6 @@ import { Timer } from './components/Timer'
 
 export function Profile () {
   const player = usePlayer()
-  const round = useRound()
-  const stage = useStage()
-
-  const score = player.get('score') || 0
 
   return (
     <div className="min-w-lg md:min-w-2xl mt-2 m-x-auto px-3 py-2 text-gray-500 rounded-md grid grid-cols-3 items-center border-.5">

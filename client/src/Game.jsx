@@ -20,11 +20,9 @@ export function Game () {
     <div className="h-full w-full flex">
       <div className="h-full w-full flex flex-col">
         <Profile />
-        <main className="h-full flex flex-col">
-          <Stage />
-        </main>
+        <Stage />
       </div>
-      {playerCount > 1 && stage.get('name') !== 'Role Exploration' && stage.get('name') !== 'Individual Ranking' && (
+      {playerCount > 1 && stage.get('name').includes('Ranking' || 'intervention') && (
         <div className="h-full w-128 border-l flex justify-center items-center">
           <Chat scope={game} attribute="chat" />
         </div>
