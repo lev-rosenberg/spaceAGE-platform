@@ -10,6 +10,8 @@ import { InstructionsStage } from './stages/InstructionsStage'
 import { RoleExploration } from './stages/RoleExploration'
 import { RankingTask } from './stages/RankingTask'
 import { StageInstructions } from './components/StageInstructions'
+import { ContextProvider } from './context'
+
 export function Stage () {
   const player = usePlayer()
   const players = usePlayers()
@@ -46,11 +48,13 @@ export function Stage () {
   }
 
   return (
-    <div className="h-full flex flex-col m-12 mt-1 ">
-      <StageInstructions />
-      <main className="experiment-content w-full h-full flex">
-        <CurrentStage />
-      </main>
-    </div>
+    <ContextProvider>
+      <div className="h-full flex flex-col m-12 mt-1 ">
+        <StageInstructions />
+        <main className="experiment-content">
+          <CurrentStage />
+        </main>
+      </div>
+    </ContextProvider>
   )
 }
