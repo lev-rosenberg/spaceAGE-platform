@@ -88,9 +88,8 @@ export function RoleExploration () {
     }
   }
   return (
-    <div id='map' className={`${styles.map} grid w-full h-fit`}>
-      <Map scaledDims={scaledDims} layerRef={layerRef}/>
-      <div className={`${styles.inset}`} style={{ height: clicked ? containerDims.height : 'fit-content' }}>
+    <div id='map' className={`${styles.map} grid w-full`} style={{ height: clicked ? scaledDims.height : 'fit-content' }}>
+      <div className={`${styles.inset}`}>
         <div className={'flex justify-self-start gap-3'}>
           {clicked && (
             <Button handleClick={handleReturnToFullSize}>
@@ -107,6 +106,7 @@ export function RoleExploration () {
           </div>
         )}
       </div>
+      <Map scaledDims={scaledDims} layerRef={layerRef}/>
     </div>
   )
 }

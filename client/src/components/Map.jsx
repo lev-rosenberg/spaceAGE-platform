@@ -36,7 +36,7 @@ export function Map ({ scaledDims, layerRef }) {
     <Stage
       width={scaledDims.width}
       height={scaledDims.height}
-      style={{ borderRadius: '6px', overflow: 'hidden' }}
+      style={{ borderRadius: '6px', overflow: 'hidden', position: 'absolute' }}
       >
       <Layer ref={layerRef}>
         <Image image={image} alt="image" width={scaledDims.width} height={scaledDims.height}/>
