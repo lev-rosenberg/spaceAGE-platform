@@ -4,6 +4,7 @@ import { Map } from '../components/Map'
 import styles from '../styles/map.module.css'
 import { Context } from '../context'
 import { usePlayer } from '@empirica/core/player/classic/react'
+import { TextInput } from '../components/TextInput'
 
 export function RoleExploration () {
   /*
@@ -17,7 +18,7 @@ export function RoleExploration () {
   const [scaledDims, setScaledDims] = useState({ width: 0, height: 0 })
   const layerRef = useRef(null)
   const { state, dispatch } = useContext(Context)
-  const { scale, hovering, clicked } = state
+  const { scale, hovering, clicked, locationCoords } = state
   const player = usePlayer()
   const [locationData, setLocationData] = useState({})
 
@@ -88,21 +89,41 @@ export function RoleExploration () {
     }
   }
   return (
-    <div id='map' className={`${styles.map} grid w-full`} style={{ height: clicked ? scaledDims.height : 'fit-content' }}>
+    <div
+      id='map'
+      className={`${styles.map}`}
+      style={{ width: clicked ? scaledDims.width : 'fit-content', height: clicked ? scaledDims.height : 'fit-content' }}>
       <div className={`${styles.inset}`}>
-        <div className={'flex justify-self-start gap-3'}>
-          {clicked && (
-            <Button handleClick={handleReturnToFullSize}>
-              Back
-            </Button>
-          )}
-          <div className={`${styles.bwSection}`}>
-            {hovering ? `Location: ${hovering}` : 'Mars World Map'}
+        <div className={'flex flex-col gap-2'} style={{ width: clicked ? '25%' : 'fit-content' }}>
+          <div className={'flex gap-2'}>
+            {clicked && (
+              <Button handleClick={handleReturnToFullSize}>
+                Back
+              </Button>
+            )}
+            <div className={`${styles.bwSection}`}>
+              {hovering ? `Location: ${hovering}` : clicked ? `Location: ${clicked}` : 'Mars World Map'}
+            </div>
           </div>
+          {clicked && (
+            <div className={`${styles.bwSection}`}>
+              <h3 className='pb-3'>This is what you know about {clicked}:</h3>
+              <p>{locationData.locations[clicked][player.get('role')]}</p>
+            </div>
+          )}
         </div>
         {clicked && (
-          <div className={`${styles.bwSection}`}>
-            <p>{locationData.locations[clicked][player.get('role')]}</p>
+          <div className={`${styles.bwSection} basis-1/4`}>
+            <p className='pb-3'>Notes:</p>
+            <div className='grid grid-cols-2 gap-2 pb-3'>
+              {locationCoords.map((location, i) => (
+                <Button key={i} className='w-auto'>
+                  {location.name}
+                </Button>
+              ))}
+            </div>
+            {/* <input className='slider' type="range" min="1" max="100" value="50"/> */}
+            <TextInput className='w-full' area />
           </div>
         )}
       </div>

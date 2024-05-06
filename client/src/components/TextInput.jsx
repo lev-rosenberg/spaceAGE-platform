@@ -9,29 +9,48 @@ import React from 'react'
 export function TextInput ({
   children,
   className = '',
-  primary = false,
+  primary = true,
   value = '',
   handleChange = null,
   id = '',
   name = '',
   required = false,
   autoFocus = false,
-  placeholder = ''
+  placeholder = '',
+  area = false
 }) {
-  return (
-    <input
-      id={id}
-      name={name}
-      type="text"
-      autoComplete="off"
-      required = {required}
-      autoFocus = {autoFocus}
-      value={value}
-      onChange={handleChange}
-      className={`${primary ? 'prim' : 'sec'} ${className}`}
-      placeholder = {placeholder}
-    >
-      {children}
-    </input>
-  )
+  if (area) {
+    return (
+      <textarea
+        id={id}
+        name={name}
+        autoComplete="off"
+        required={required}
+        autoFocus={autoFocus}
+        value={value}
+        onChange={handleChange}
+        className={`${primary ? 'prim' : 'sec'} ${className}`}
+        placeholder={placeholder}
+      >
+        {children}
+      </textarea>
+    )
+  } else {
+    return (
+      <input
+        id={id}
+        name={name}
+        type="text"
+        autoComplete="off"
+        required={required}
+        autoFocus={autoFocus}
+        value={value}
+        onChange={handleChange}
+        className={`${primary ? 'prim' : 'sec'} ${className}`}
+        placeholder={placeholder}
+      >
+        {children}
+      </input>
+    )
+  }
 }

@@ -8,13 +8,7 @@ import useImage from 'use-image'
 export function Map ({ scaledDims, layerRef }) {
   const [image] = useImage('mars-atlas.png')
   const { state, dispatch } = useContext(Context)
-  const { scale, clicked } = state
-  const locationCoords = [
-    { name: 'Argyre', x: 1330, y: 1190 },
-    { name: 'Casius', x: 2600, y: 500 },
-    { name: 'Diacria', x: 400, y: 300 },
-    { name: 'Eridania', x: 3100, y: 1140 }
-  ]
+  const { scale, clicked, locationCoords } = state
   function handleZoomToLocation (location) {
     const layer = layerRef.current
     if (layer) {
