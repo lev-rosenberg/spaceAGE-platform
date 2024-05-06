@@ -1,0 +1,12 @@
+.map .inset {
+  display: flex;
+  position: absolute;
+  margin: 0.5rem;
+}
+
+.map .bwSection {
+  background-color: var(--dark-grey);
+  border-bottom: 3px solid var(--primary-white);
+  color: var(--primary-white);
+  padding: 0.5rem 1rem;
+}
