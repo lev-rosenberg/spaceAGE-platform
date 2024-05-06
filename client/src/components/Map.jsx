@@ -20,14 +20,14 @@ export function Map ({ scaledDims, layerRef }) {
     if (layer) {
       const stageWidth = layer.width()
       const stageHeight = layer.height()
-      const zoomFactor = 3
+      const zoomFactor = 2.5
 
       layer.to({
         x: stageWidth / 2 - (location.x * scale * zoomFactor),
         y: stageHeight / 2 - (location.y * scale * zoomFactor),
         scaleX: zoomFactor,
         scaleY: zoomFactor,
-        duration: 0.1
+        duration: 0.2
       })
       dispatch({ type: 'SET_CLICKED', payload: location.name })
     }
@@ -36,7 +36,7 @@ export function Map ({ scaledDims, layerRef }) {
     <Stage
       width={scaledDims.width}
       height={scaledDims.height}
-      // style={{ borderRadius: '6px', overflow: 'hidden' }}
+      style={{ borderRadius: '6px', overflow: 'hidden' }}
       >
       <Layer ref={layerRef}>
         <Image image={image} alt="image" width={scaledDims.width} height={scaledDims.height}/>

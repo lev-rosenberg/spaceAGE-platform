@@ -19,7 +19,7 @@ Empirica.onGameStart(({ game }) => {
   // 1: Create the round and stages
   const round = game.addRound({ name: 'Round' })
   // round.addStage({ name: 'Walkthrough', duration: 120 })
-  round.addStage({ name: 'Instructions', duration: 120 })
+  // round.addStage({ name: 'Instructions', duration: 120 })
   round.addStage({ name: 'Role Exploration', duration: 6000 })
   round.addStage({ name: 'Individual Ranking', duration: 600 })
   if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 600 })

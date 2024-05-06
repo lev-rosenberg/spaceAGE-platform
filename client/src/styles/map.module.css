@@ -1,7 +1,13 @@
+.map {
+  overflow: hidden;
+}
 .map .inset {
   display: flex;
+  flex-direction: column;
   position: absolute;
   margin: 0.5rem;
+  gap: 3px;
+  width: 20%;
 }
 
 .map .bwSection {
@@ -9,4 +15,5 @@
   border-bottom: 3px solid var(--primary-white);
   color: var(--primary-white);
   padding: 0.5rem 1rem;
+  overflow: scroll;
 }

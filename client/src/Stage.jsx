@@ -51,7 +51,7 @@ export function Stage () {
     <ContextProvider>
       <div className="h-full flex flex-col m-12 mt-1 ">
         <StageInstructions />
-        <main className="experiment-content">
+        <main id = 'main' className="experiment-content">
           <CurrentStage />
         </main>
       </div>
