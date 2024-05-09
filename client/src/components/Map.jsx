@@ -8,7 +8,8 @@ import useImage from 'use-image'
 export function Map ({ scaledDims, layerRef }) {
   const [image] = useImage('mars-atlas.png')
   const { state, dispatch } = useContext(Context)
-  const { scale, clicked, locationCoords } = state
+  const { scale, locationCoords } = state
+
   function handleZoomToLocation (location) {
     const layer = layerRef.current
     if (layer) {
@@ -21,20 +22,21 @@ export function Map ({ scaledDims, layerRef }) {
         y: stageHeight / 2 - (location.y * scale * zoomFactor),
         scaleX: zoomFactor,
         scaleY: zoomFactor,
-        duration: 0.2
+        duration: 0.25
       })
       dispatch({ type: 'SET_CLICKED', payload: location.name })
     }
   }
+
   return (
     <Stage
       width={scaledDims.width}
       height={scaledDims.height}
-      style={{ borderRadius: '6px', overflow: 'hidden', position: 'absolute' }}
+      style={{ borderRadius: '6px', overflow: 'hidden', position: 'absolute', backgroundColor: 'grey' }}
       >
       <Layer ref={layerRef}>
         <Image image={image} alt="image" width={scaledDims.width} height={scaledDims.height}/>
-        {!clicked && locationCoords.map((location) => (
+        {locationCoords.map((location) => (
           <LocationTarget
             key={location.name}
             location = {location}

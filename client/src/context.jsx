@@ -8,8 +8,8 @@ const initialState = {
   locationCoords: [
     { name: 'Argyre', x: 1330, y: 1190 },
     { name: 'Casius', x: 2600, y: 500 },
-    { name: 'Diacria', x: 400, y: 300 },
-    { name: 'Eridania', x: 3100, y: 1140 }]
+    { name: 'Diacria', x: 350, y: 300 },
+    { name: 'Eridania', x: 3150, y: 1140 }]
 }
 
 const reducer = (state, action) => {

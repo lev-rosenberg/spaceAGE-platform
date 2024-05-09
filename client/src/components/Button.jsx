@@ -12,7 +12,8 @@ export function Button ({
   className = '',
   primary = true,
   type = 'button',
-  autoFocus = false
+  autoFocus = false,
+  id = null
 }) {
   return (
     <button

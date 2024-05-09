@@ -25,7 +25,7 @@ export function RoleExploration () {
   useEffect(() => {
     /*
       1. Load the image and get its dimensions
-      2. Get the dimensions of the container
+      2. Get the dimensions of the container and set the initial scale factor
       3. Add an event listener to handle resizing
       4. Get location data
     */
@@ -50,30 +50,37 @@ export function RoleExploration () {
     return () => window.removeEventListener('resize', handleWindowResize)
   }, [])
 
-  async function handleWindowResize () {
+  function handleWindowResize () {
+    /*
+      When the window is resized, get the new dimensions of the new container and rescale the image
+    */
     const dims = document.querySelector('#main')?.getBoundingClientRect()
     setContainerDims({ width: dims.width, height: dims.height })
-    rescaleImage()
+    rescaleImage(dims, originalImgDims)
   }
 
-  function rescaleImage () {
-    if (originalImgDims.width && originalImgDims.height && containerDims.width && containerDims.height) {
+  function rescaleImage (container, original) {
+    /*
+      Scale the image to fit the container. If the image is too big, scale it down. If the image is too small, scale it up.
+    */
+    if (original.width && original.height && container.width && container.height) {
       let newScale
-      console.log('test', containerDims.height / originalImgDims.height)
-      if (containerDims.height / originalImgDims.height < scale) {
-        newScale = containerDims.height / originalImgDims.height
+      if (container.height / original.height < scale) {
+        newScale = container.height / original.height
       } else {
-        newScale = containerDims.width / originalImgDims.width
+        newScale = container.width / original.width
       }
-      setScaledDims({ width: originalImgDims.width * newScale, height: originalImgDims.height * newScale })
-      console.log(scale, newScale, originalImgDims, containerDims)
+      setScaledDims({ width: original.width * newScale, height: original.height * newScale })
       dispatch({ type: 'SET_SCALE', payload: newScale })
     }
   }
 
   useEffect(() => {
-    rescaleImage()
-  }, [originalImgDims, containerDims])
+    /*
+      When the there's any change in the original image dimensions or the container dimensions, rescale the image
+    */
+    rescaleImage(containerDims, originalImgDims)
+  }, [containerDims, originalImgDims])
 
   function handleReturnToFullSize () {
     const layer = layerRef.current
@@ -83,7 +90,7 @@ export function RoleExploration () {
         y: 0,
         scaleX: 1,
         scaleY: 1,
-        duration: 0.1
+        duration: 0.2
       })
       dispatch({ type: 'SET_CLICKED', payload: null })
     }
@@ -94,7 +101,7 @@ export function RoleExploration () {
       className={`${styles.map}`}
       style={{ width: clicked ? scaledDims.width : 'fit-content', height: clicked ? scaledDims.height : 'fit-content' }}>
       <div className={`${styles.inset}`}>
-        <div className={'flex flex-col gap-2'} style={{ width: clicked ? '25%' : 'fit-content' }}>
+        <div className={'flex flex-col gap-2'} style={{ width: clicked ? '35%' : 'fit-content' }}>
           <div className={'flex gap-2'}>
             {clicked && (
               <Button handleClick={handleReturnToFullSize}>
@@ -107,8 +114,13 @@ export function RoleExploration () {
           </div>
           {clicked && (
             <div className={`${styles.bwSection}`}>
-              <h3 className='pb-3'>This is what you know about {clicked}:</h3>
-              <p>{locationData.locations[clicked][player.get('role')]}</p>
+              <h3>This is what you know about {clicked}:</h3>
+              {locationData.locations[clicked][player.get('role')].split('\n').map((line, i) => (
+                <div key={i}>
+                  <br/>
+                  <p>{line}</p>
+                </div>
+              ))}
             </div>
           )}
         </div>
@@ -123,7 +135,11 @@ export function RoleExploration () {
               ))}
             </div>
             {/* <input className='slider' type="range" min="1" max="100" value="50"/> */}
-            <TextInput className='w-full' area />
+            <TextInput
+              className='w-full'
+              area
+              handleChange={() => console.log('implement me')}
+              />
           </div>
         )}
       </div>
