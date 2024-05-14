@@ -28,6 +28,9 @@ export default function LocationTarget ({ location, zoomInCallback }) {
 
   useEffect(() => {
     function scaleSize () {
+      if (textRef.current === null) {
+        return
+      }
       setSize({
         width: textRef.current.width(),
         height: textRef.current.height()
@@ -44,31 +47,39 @@ export default function LocationTarget ({ location, zoomInCallback }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
-        // onMouseUp={(location) => handleZoomToLocation(location)}
         >
         <Circle
-          x={location.x * scale}
-          y={location.y * scale}
-          width={hovering === location.name ? 40 * scale : 30 * scale}
-          height={hovering === location.name ? 40 * scale : 30 * scale}
+          x={Math.max(location.x * scale, 1)}
+          y={Math.max(location.y * scale, 1)}
+          width={Math.max(hovering === location.name ? 40 * scale : 30 * scale, 1)}
+          height={Math.max(hovering === location.name ? 40 * scale : 30 * scale, 1)}
           shadowBlur={hovering === location.name ? 10 : 0}
           shadowColor='lightblue'
           fill={hovering === location.name ? 'lightblue' : 'white'}/>
-        <Circle x={location.x * scale} y={location.y * scale}
-          width={135 * scale}
-          height={135 * scale}
+        <Circle
+          x={Math.max(location.x * scale, 1)}
+          y={Math.max(location.y * scale, 1)}
+          width={Math.max(135 * scale, 1)}
+          height={Math.max(135 * scale, 1)}
           stroke='white'
           strokeWidth={1}
         />
-        <Circle x={location.x * scale} y={location.y * scale}
-          width={160 * scale}
-          height={160 * scale}
+        <Circle
+          x={Math.max(location.x * scale, 1)}
+          y={Math.max(location.y * scale, 1)}
+          width={Math.max(160 * scale, 1)}
+          height={Math.max(160 * scale, 1)}
           stroke='white'
           strokeWidth={3}
           shadowBlur={6}
           shadowColor='white'
           />
-        <Circle x={location.x * scale} y={location.y * scale} width={160 * scale} height={160 * scale} fill='rgba(233, 233, 233, 0.4'/>
+        <Circle
+          x={Math.max(location.x * scale, 1)}
+          y={Math.max(location.y * scale, 1)}
+          width={Math.max(160 * scale, 1)}
+          height={Math.max(160 * scale, 1)}
+          fill='rgba(233, 233, 233, 0.4'/>
         {hovering === location.name && (
           <>
             <Line
@@ -88,12 +99,12 @@ export default function LocationTarget ({ location, zoomInCallback }) {
       </Group>
       {!clicked && (
         <Group
-          x={(location.x + 75) * scale + (hovering === location.name ? 50 * scale : 0)}
-          y={(location.y + 75) * scale + (hovering === location.name ? 50 * scale : 0)}
+          x={Math.max((location.x + 75) * scale + (hovering === location.name ? 50 * scale : 0), 1)}
+          y={Math.max((location.y + 75) * scale + (hovering === location.name ? 50 * scale : 0), 1)}
         >
           <Rect
-            width={size.width}
-            height={size.height}
+            width={Math.max(size.width, 1)}
+            height={Math.max(size.height, 1)}
             fill='#f0f0f0'
           />
           <Text

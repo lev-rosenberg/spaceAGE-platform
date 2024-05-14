@@ -4,8 +4,7 @@ import { Map } from '../components/Map'
 import styles from '../styles/map.module.css'
 import { Context } from '../context'
 import { usePlayer } from '@empirica/core/player/classic/react'
-import { TextInput } from '../components/TextInput'
-
+import { Notes } from '../components/Notes'
 export function RoleExploration () {
   /*
     This component is responsible for rendering the map component and scaling it to fit the container.
@@ -18,7 +17,7 @@ export function RoleExploration () {
   const [scaledDims, setScaledDims] = useState({ width: 0, height: 0 })
   const layerRef = useRef(null)
   const { state, dispatch } = useContext(Context)
-  const { scale, hovering, clicked, locationCoords } = state
+  const { scale, hovering, clicked } = state
   const player = usePlayer()
   const [locationData, setLocationData] = useState({})
 
@@ -125,22 +124,7 @@ export function RoleExploration () {
           )}
         </div>
         {clicked && (
-          <div className={`${styles.bwSection} basis-1/4`}>
-            <p className='pb-3'>Notes:</p>
-            <div className='grid grid-cols-2 gap-2 pb-3'>
-              {locationCoords.map((location, i) => (
-                <Button key={i} className='w-auto'>
-                  {location.name}
-                </Button>
-              ))}
-            </div>
-            {/* <input className='slider' type="range" min="1" max="100" value="50"/> */}
-            <TextInput
-              className='w-full'
-              area
-              handleChange={() => console.log('implement me')}
-              />
-          </div>
+          <Notes />
         )}
       </div>
       <Map scaledDims={scaledDims} layerRef={layerRef}/>

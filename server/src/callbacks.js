@@ -12,6 +12,9 @@ Empirica.onGameStart(({ game }) => {
       a. individual rankings held in player.get('individual-ranking')
       b. team rankings held in round.get('<team-acronym>-team-ranking')
       c. mts rankings held in round.get('mts-ranking')
+    4. Set the initial location notes for each player.
+      a. locationTextNotes: { location: '' }
+      b. locationSliderNotes: { location: { sliderVal: 0, sliderVal: 0, sliderVal: 0} }
   */
   const treatment = game.get('treatment')
   const { interventionPlacement, aiVariation } = treatment
@@ -54,6 +57,25 @@ Empirica.onGameStart(({ game }) => {
   round.set('shf-team-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
   round.set('pgt-team-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
   round.set('mts-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
+
+  // 4: Set the initial location notes for each player
+  for (const player of players) {
+    const team = player.get('team')
+    const locationTextNotes = {}
+    for (const location of ['Argyre', 'Casius', 'Diacria', 'Eridania']) {
+      locationTextNotes[location] = ''
+    }
+    player.set('locationTextNotes', locationTextNotes)
+    const locationSliderNotes = {}
+    for (const location of ['Argyre', 'Casius', 'Diacria', 'Eridania']) {
+      if (team === 'Planetary Geology Team') {
+        locationSliderNotes[location] = { landing: 0, sunlight: 0, habitat: 0, water: 0 }
+      } else {
+        locationSliderNotes[location] = { life: 0, geology: 0, atmosphere: 0 }
+      }
+    }
+    player.set('locationSliderNotes', locationSliderNotes)
+  }
 })
 
 Empirica.onRoundStart(({ round }) => {})
