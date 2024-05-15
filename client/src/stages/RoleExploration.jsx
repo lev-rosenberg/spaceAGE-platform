@@ -112,7 +112,7 @@ export function RoleExploration () {
             </div>
           </div>
           {clicked && (
-            <div className={`${styles.bwSection}`}>
+            <div className={`${styles.bwSection} ${styles.locationInfo}`}>
               <h3>This is what you know about {clicked}:</h3>
               {locationData.locations[clicked][player.get('role')].split('\n').map((line, i) => (
                 <div key={i}>

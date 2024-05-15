@@ -15,7 +15,14 @@
   background-color: var(--dark-grey);
   border-bottom: 3px solid var(--primary-white);
   color: var(--primary-white);
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   height: 100%;
   overflow: scroll;
+}
+
+.map .locationInfo {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

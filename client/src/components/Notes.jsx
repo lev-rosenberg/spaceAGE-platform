@@ -18,26 +18,31 @@ export function Notes () {
 
   return (
     <div className={`${styles.bwSection} basis-1/4`}>
-      <p className='pb-3'>Notes:</p>
+      {/* <h3 className='mb-1'>Notes:</h3> */}
       <div className='grid grid-cols-2 gap-2 pb-3'>
         {locationCoords.map((location, i) => (
-          <Button key={i} className='w-auto'>
+          <Button
+            key={i}
+            className={`w-auto ${clicked === location.name && 'clicked'}`}
+            >
             {location.name}
           </Button>
         ))}
       </div>
+      <h3 className='mb-2'>Rank {clicked} on the following factors:</h3>
       <form>
-        <label htmlFor='slider'>Slider:</label>
-        {Object.keys(sliderNotes[clicked]).map((slider, i) => (
-          <SliderInput
-            key={i}
-            value={sliderNotes[clicked][slider]}
-            label={slider}
-            handleChange={(e) => setSliderNotes({ ...sliderNotes, [clicked]: { ...sliderNotes[clicked], [slider]: e.target.value } })}
-          />
-        ))}
+        <div className='flex flex-col gap-2 mb-3'>
+          {Object.keys(sliderNotes[clicked]).map((slider, i) => (
+            <SliderInput
+              key={i}
+              value={sliderNotes[clicked][slider]}
+              label={slider}
+              handleChange={(e) => setSliderNotes({ ...sliderNotes, [clicked]: { ...sliderNotes[clicked], [slider]: e.target.value } })}
+            />
+          ))}
+        </div>
         <TextInput
-          className='w-full'
+          className='w-full h-32'
           value={textNotes[clicked]}
           area
           handleChange={(e) => setTextNotes({ ...textNotes, [clicked]: e.target.value })}

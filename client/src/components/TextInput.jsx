@@ -29,7 +29,7 @@ export function TextInput ({
         autoFocus={autoFocus}
         value={value}
         onChange={handleChange}
-        className={`${primary ? 'prim' : 'sec'} ${className}`}
+        className={`leading-4 ${primary ? 'prim' : 'sec'} ${className}`}
         placeholder={placeholder}
       >
         {children}

@@ -31,15 +31,23 @@ export function Map ({ scaledDims, layerRef }) {
 
   useEffect(() => {
     // set the initial slider values. these are set outside of the reducer because they depend on the player's team
-
     if (Object.keys(locationSliderNotes).length === 0) {
       const team = player.get('team')
       const initSliderNotes = {}
       for (const location of locationCoords) {
         if (team === 'Planetary Geology Team') {
-          initSliderNotes[location.name] = { landing: 0, sunlight: 0, habitat: 0, water: 0 }
+          initSliderNotes[location.name] = {
+            'Safe landing & receiving re-supply capsules': 5,
+            'Access to sunlight & favorable atmosphere': 5,
+            'Protective habitat against harsh environment': 5,
+            'Access to water & necessary resources': 5
+          }
         } else {
-          initSliderNotes[location.name] = { life: 0, geology: 0, atmosphere: 0 }
+          initSliderNotes[location.name] = {
+            'Existence of life on Mars': 5,
+            'Geologically intriguing': 5,
+            'Atmosphere and climate dynamics': 5
+          }
         }
       }
       dispatch({ type: 'SET_LOCATION_SLIDER_NOTES', payload: initSliderNotes })
