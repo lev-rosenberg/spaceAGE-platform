@@ -88,15 +88,16 @@ export function RoleExploration () {
   function handleZoomToLocation (location) {
     const layer = layerRef.current
     if (layer) {
-      const stageWidth = layer.width()
-      const stageHeight = layer.height()
+      const layerWidth = layer.width()
+      const layerHeight = layer.height()
+      dispatch({ type: 'SET_LAYER_DIMS', payload: { width: layer.width(), height: layer.height() } })
       const zoomFactor = 2.5
       layer.to({
-        x: stageWidth / 2 - (location.x * scale * zoomFactor),
-        y: stageHeight / 2 - (location.y * scale * zoomFactor),
+        x: layerWidth / 2 - (location.x * scale * zoomFactor),
+        y: layerHeight / 2 - (location.y * scale * zoomFactor),
         scaleX: zoomFactor,
         scaleY: zoomFactor,
-        duration: 0.25
+        duration: 0.2
       })
       dispatch({ type: 'SET_CLICKED', payload: location.name })
     }
@@ -128,7 +129,7 @@ export function RoleExploration () {
                 Back
               </Button>
             )}
-            <div className={`${styles.bwSection}`}>
+            <div className={`${styles.bwSection} ${styles.locationName}`}>
               {hovering ? `Location: ${hovering}` : clicked ? `Location: ${clicked}` : 'Mars World Map'}
             </div>
           </div>
@@ -149,8 +150,8 @@ export function RoleExploration () {
         )}
         {!clicked && visited.length === 4 && (
           <Button
-            handleClick={() => console.log('Next Stage')}
-            className='m-3 self-end'>
+            handleClick={() => player.stage.set('submit', true)}
+            className='m-1 self-end'>
             Next Stage
           </Button>
         )}

@@ -17,6 +17,11 @@ export function Notes () {
   const [sliderNotes, setSliderNotes] = useState(player.get('locationSliderNotes'))
 
   async function updateLocationNotes () {
+    // if the notes haven't changed, don't update
+    if (textNotes === player.get('locationTextNotes') && sliderNotes === player.get('locationSliderNotes')) {
+      return
+    }
+    console.log('updating notes')
     player.set('locationTextNotes', textNotes)
     player.set('locationSliderNotes', sliderNotes)
     if (!visited.includes(clicked)) {

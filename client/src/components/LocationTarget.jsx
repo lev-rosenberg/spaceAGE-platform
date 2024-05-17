@@ -17,7 +17,6 @@ export default function LocationTarget ({ location, zoomInCallback }) {
   function handleMouseEnter (e) {
     const container = e.target.getStage().container()
     container.style.cursor = 'pointer'
-    // You need this conditional or else it continously calls the dispatch and blocks the mouseLeave event.
     if (hovering !== location.name) {
       dispatch({ type: 'SET_HOVERING', payload: location.name })
     }
@@ -47,20 +46,20 @@ export default function LocationTarget ({ location, zoomInCallback }) {
     window.addEventListener('resize', () => {
       scaleSize()
     })
-  }, [])
+  }, [clicked, scale])
 
   return (
     <Group>
       <Group
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={!clicked ? handleMouseEnter : null}
+        onMouseLeave={!clicked ? handleMouseLeave : null}
         onClick={handleClick}
         >
         <Circle
           x={Math.max(location.x * scale, 1)}
           y={Math.max(location.y * scale, 1)}
-          width={Math.max(hovering === location.name ? 40 * scale : 30 * scale, 1)}
-          height={Math.max(hovering === location.name ? 40 * scale : 30 * scale, 1)}
+          width={Math.max(!clicked && hovering === location.name ? 40 * scale : 30 * scale, 1)}
+          height={Math.max(!clicked && hovering === location.name ? 40 * scale : 30 * scale, 1)}
           shadowBlur={hovering === location.name ? 10 : 0}
           shadowColor='lightblue'
           fill={hovering === location.name ? 'lightblue' : color}/>
@@ -111,8 +110,8 @@ export default function LocationTarget ({ location, zoomInCallback }) {
           y={Math.max((location.y + 75) * scale + (hovering === location.name ? 50 * scale : 0), 1)}
         >
           <Rect
-            width={Math.max(size.width, 1)}
-            height={Math.max(size.height, 1)}
+            width={Math.max(size.width)}
+            height={Math.max(size.height)}
             fill={color}
           />
           <Text

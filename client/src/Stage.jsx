@@ -19,7 +19,7 @@ export function Stage () {
     }
 
     return (
-      <div className="text-center text-white pointer-events-none">
+      <div className="flex items-center justify-center h-full text-center text-white pointer-events-none">
         Please wait for other player(s).
       </div>
     )
@@ -41,7 +41,6 @@ export function Stage () {
         return <Loading />
     }
   }
-
   return (
     <div className="h-full flex flex-col m-12 mt-1 ">
       <StageInstructions />
