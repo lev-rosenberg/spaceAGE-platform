@@ -70,6 +70,7 @@ button {
   padding: 0.5rem 1.3rem;
   transition: all 0.05s ease-in-out;
   height: fit-content;
+  z-index: 10;
 }
 
 button.prim {

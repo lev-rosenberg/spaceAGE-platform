@@ -1,19 +1,27 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react'
 import { Button } from './Button'
 import { TextInput } from './TextInput'
 import { Context } from '../context'
 import { SliderInput } from './SliderInput'
 import styles from '../styles/map.module.css'
+import { usePlayer } from '@empirica/core/player/classic/react'
 
 export function Notes () {
-  const { state, dispatch } = useContext(Context)
-  const { clicked, locationCoords, locationTextNotes, locationSliderNotes } = state
-  const [textNotes, setTextNotes] = useState(locationTextNotes)
-  const [sliderNotes, setSliderNotes] = useState(locationSliderNotes)
+  const player = usePlayer()
+  const { state } = useContext(Context)
+  const { clicked, locationCoords } = state
+  const visited = player.get('visited')
 
-  function updateLocationNotes () {
-    dispatch({ type: 'SET_LOCATION_TEXT_NOTES', payload: textNotes })
-    dispatch({ type: 'SET_LOCATION_SLIDER_NOTES', payload: sliderNotes })
+  const [textNotes, setTextNotes] = useState(player.get('locationTextNotes'))
+  const [sliderNotes, setSliderNotes] = useState(player.get('locationSliderNotes'))
+
+  async function updateLocationNotes () {
+    player.set('locationTextNotes', textNotes)
+    player.set('locationSliderNotes', sliderNotes)
+    if (!visited.includes(clicked)) {
+      player.set('visited', [...visited, clicked])
+    }
   }
 
   return (

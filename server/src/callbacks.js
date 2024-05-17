@@ -60,6 +60,7 @@ Empirica.onGameStart(({ game }) => {
 
   // 4: Set the initial location notes for each player
   for (const player of players) {
+    player.set('visited', [])
     const team = player.get('team')
     const locationTextNotes = {}
     for (const location of ['Argyre', 'Casius', 'Diacria', 'Eridania']) {
@@ -69,9 +70,18 @@ Empirica.onGameStart(({ game }) => {
     const locationSliderNotes = {}
     for (const location of ['Argyre', 'Casius', 'Diacria', 'Eridania']) {
       if (team === 'Planetary Geology Team') {
-        locationSliderNotes[location] = { landing: 0, sunlight: 0, habitat: 0, water: 0 }
+        locationSliderNotes[location] = {
+          'Safe landing & receiving re-supply capsules': 5,
+          'Access to sunlight & favorable atmosphere': 5,
+          'Protective habitat against harsh environment': 5,
+          'Access to water & necessary resources': 5
+        }
       } else {
-        locationSliderNotes[location] = { life: 0, geology: 0, atmosphere: 0 }
+        locationSliderNotes[location] = {
+          'Possibilty to discover life on Mars': 5,
+          'Geologically intriguing': 5,
+          'Atmosphere and climate dynamics': 5
+        }
       }
     }
     player.set('locationSliderNotes', locationSliderNotes)

@@ -2,11 +2,18 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from '../context'
 import { Circle, Line, Group, Text, Rect } from 'react-konva'
+import { usePlayer } from '@empirica/core/player/classic/react'
+
 export default function LocationTarget ({ location, zoomInCallback }) {
+  const player = usePlayer()
   const { state, dispatch } = useContext(Context)
   const { scale, hovering, clicked } = state
   const textRef = useRef(null)
   const [size, setSize] = useState({ width: 0, height: 0 })
+  const visited = player.get('visited')
+  const isVisited = visited.includes(location.name)
+  const color = isVisited ? 'darkgreen' : 'white'
+
   function handleMouseEnter (e) {
     const container = e.target.getStage().container()
     container.style.cursor = 'pointer'
@@ -41,8 +48,9 @@ export default function LocationTarget ({ location, zoomInCallback }) {
       scaleSize()
     })
   }, [])
+
   return (
-    <>
+    <Group>
       <Group
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -55,13 +63,13 @@ export default function LocationTarget ({ location, zoomInCallback }) {
           height={Math.max(hovering === location.name ? 40 * scale : 30 * scale, 1)}
           shadowBlur={hovering === location.name ? 10 : 0}
           shadowColor='lightblue'
-          fill={hovering === location.name ? 'lightblue' : 'white'}/>
+          fill={hovering === location.name ? 'lightblue' : color}/>
         <Circle
           x={Math.max(location.x * scale, 1)}
           y={Math.max(location.y * scale, 1)}
           width={Math.max(135 * scale, 1)}
           height={Math.max(135 * scale, 1)}
-          stroke='white'
+          stroke={color}
           strokeWidth={1}
         />
         <Circle
@@ -69,10 +77,10 @@ export default function LocationTarget ({ location, zoomInCallback }) {
           y={Math.max(location.y * scale, 1)}
           width={Math.max(160 * scale, 1)}
           height={Math.max(160 * scale, 1)}
-          stroke='white'
+          stroke={color}
           strokeWidth={3}
           shadowBlur={6}
-          shadowColor='white'
+          shadowColor={color}
           />
         <Circle
           x={Math.max(location.x * scale, 1)}
@@ -84,16 +92,16 @@ export default function LocationTarget ({ location, zoomInCallback }) {
           <>
             <Line
               points={[0, location.y * scale, 2000, location.y * scale]}
-              stroke='white'
+              stroke={color}
               strokeWidth={1}
               dash = {[3, 3]}/>
             <Line
               points={[location.x * scale, 0, location.x * scale, 2000]}
-              stroke='white'
+              stroke={color}
               strokeWidth={1}
               dash = {[3, 3]}/>
-            <Circle x={location.x * scale} y={location.y * scale} width={300 * scale} height={300 * scale} stroke='white' strokeWidth={2}/>
-            <Circle x={location.x * scale} y={location.y * scale} width={280 * scale} height={280 * scale} stroke='white' strokeWidth={1}/>
+            <Circle x={location.x * scale} y={location.y * scale} width={300 * scale} height={300 * scale} stroke={color} strokeWidth={2}/>
+            <Circle x={location.x * scale} y={location.y * scale} width={280 * scale} height={280 * scale} stroke={color} strokeWidth={1}/>
           </>
         )}
       </Group>
@@ -105,19 +113,19 @@ export default function LocationTarget ({ location, zoomInCallback }) {
           <Rect
             width={Math.max(size.width, 1)}
             height={Math.max(size.height, 1)}
-            fill='#f0f0f0'
+            fill={color}
           />
           <Text
             text={location.name}
             ref={textRef}
             fontFamily='Monospace'
             fontSize={30 * scale}
-            fill='#202020'
+            fill={isVisited ? 'white' : '#202020'}
             verticalAlign='middle'
             padding = {7}
           />
         </Group>
       )}
-    </>
+    </Group>
   )
 }
