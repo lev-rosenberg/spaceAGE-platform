@@ -5,6 +5,7 @@ import styles from '../styles/map.module.css'
 import { Context } from '../context'
 import { usePlayer } from '@empirica/core/player/classic/react'
 import { Notes } from '../components/Notes'
+import { isEqual } from 'lodash'
 export function RoleExploration () {
   /*
     This component is responsible for rendering the map component and scaling it to fit the container.
@@ -17,10 +18,10 @@ export function RoleExploration () {
   const [scaledDims, setScaledDims] = useState({ width: 0, height: 0 })
   const layerRef = useRef(null)
   const { state, dispatch } = useContext(Context)
-  const { scale, hovering, clicked } = state
+  const { scale, hovering, clicked, localTextNotes, localSliderNotes } = state
   const player = usePlayer()
   const visited = player.get('visited')
-  const [locationData, setLocationData] = useState({})
+  const [locationJsonData, setLocationJsonData] = useState({})
 
   useEffect(() => {
     /*
@@ -47,7 +48,7 @@ export function RoleExploration () {
     window.addEventListener('resize', handleWindowResize)
 
     fetch('/static-info.json').then((res) => res.json()).then((data) => {
-      setLocationData(data)
+      setLocationJsonData(data)
     })
 
     return () => window.removeEventListener('resize', handleWindowResize)
@@ -116,6 +117,24 @@ export function RoleExploration () {
       dispatch({ type: 'SET_CLICKED', payload: null })
     }
   }
+
+  function handleBackClick () {
+    handleReturnToFullSize()
+    // if the notes haven't changed, don't update
+    if (isEqual(localTextNotes, player.get('locationTextNotes')) && isEqual(localSliderNotes, player.get('locationSliderNotes'))) {
+      return
+    }
+    // otherwise, update the notes and add the location to the visited list
+    // set 0.5 sec timer to allow the map to zoom out before updating the notes
+    setTimeout(() => {
+      player.set('locationTextNotes', localTextNotes)
+      player.set('locationSliderNotes', localSliderNotes)
+      if (!visited.includes(clicked)) {
+        player.set('visited', [...visited, clicked])
+      }
+    }, 500)
+  }
+
   return (
     <div
       id='map'
@@ -125,7 +144,7 @@ export function RoleExploration () {
         <div className={'flex flex-col gap-2'} style={{ width: clicked ? '35%' : 'fit-content' }}>
           <div className={'flex gap-2'}>
             {clicked && (
-              <Button handleClick={handleReturnToFullSize}>
+              <Button handleClick={handleBackClick}>
                 Back
               </Button>
             )}
@@ -133,10 +152,10 @@ export function RoleExploration () {
               {hovering ? `Location: ${hovering}` : clicked ? `Location: ${clicked}` : 'Mars World Map'}
             </div>
           </div>
-          {clicked && locationData.locations && (
+          {clicked && locationJsonData.locations && (
             <div className={`${styles.bwSection} ${styles.locationInfo}`}>
               <h3>This is what you know about {clicked}:</h3>
-              {locationData.locations[clicked][player.get('role')].split('\n').map((line, i) => (
+              {locationJsonData.locations[clicked][player.get('role')].split('\n').map((line, i) => (
                 <div key={i}>
                   <br/>
                   <p>{line}</p>

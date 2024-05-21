@@ -10,20 +10,24 @@ export function Map ({ scaledDims, layerRef, handleZoomToLocation }) {
   const { state } = useContext(Context)
   const { scale, clicked, locationCoords, layerDims } = state
 
-  useEffect(() => {
-    const layer = layerRef.current
-    if (layer && layerDims.width && layerDims.height && clicked) {
-      const zoomFactor = 2.5
-      const location = locationCoords.find((loc) => loc.name === clicked)
-      layer.to({
-        x: layerDims.width / 2 - (location.x * scale * zoomFactor),
-        y: layerDims.height / 2 - (location.y * scale * zoomFactor),
-        scaleX: zoomFactor,
-        scaleY: zoomFactor,
-        duration: 0
-      })
-    }
-  }, [layerRef])
+  // useEffect(() => {
+  //   console.log('Map rendered in useEffect...')
+  //   const layer = layerRef.current
+  //   const location = locationCoords.find((loc) => loc.name === clicked)
+  //   console.log('location zoom', layerDims, location)
+  //   if (layer && layerDims.width && layerDims.height && clicked) {
+  //     const zoomFactor = 2.5
+  //     const location = locationCoords.find((loc) => loc.name === clicked)
+  //     console.log('location zoom', layerDims, location)
+  //     layer.to({
+  //       x: layerDims.width / 2 - (location.x * scale * zoomFactor),
+  //       y: layerDims.height / 2 - (location.y * scale * zoomFactor),
+  //       scaleX: zoomFactor,
+  //       scaleY: zoomFactor,
+  //       duration: 0
+  //     })
+  //   }
+  // }, [])
 
   return (
     <Stage

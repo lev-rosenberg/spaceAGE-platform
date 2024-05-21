@@ -10,9 +10,7 @@ export function Introduction ({ next }) {
       </h3>
       <div className="mt-2 mb-6">
         <p className="text-sm">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius aliquam
-          laudantium explicabo pariatur iste dolorem animi vitae error totam. At
-          sapiente aliquam accusamus facere veritatis.
+          Introduction stage is not yet implemented. Click next to proceed.
         </p>
       </div>
       <Button handleClick={next} autoFocus>

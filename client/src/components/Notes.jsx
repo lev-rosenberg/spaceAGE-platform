@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Button } from './Button'
 import { TextInput } from './TextInput'
 import { Context } from '../context'
@@ -9,25 +9,33 @@ import { usePlayer } from '@empirica/core/player/classic/react'
 
 export function Notes () {
   const player = usePlayer()
-  const { state } = useContext(Context)
-  const { clicked, locationCoords } = state
-  const visited = player.get('visited')
+  const serverSideSliderNotes = player.get('locationSliderNotes')
+  // const [textNotes, setTextNotes] = useState(serverSideTextNotes)
+  // const [sliderNotes, setSliderNotes] = useState(serverSideSliderNotes)
 
-  const [textNotes, setTextNotes] = useState(player.get('locationTextNotes'))
-  const [sliderNotes, setSliderNotes] = useState(player.get('locationSliderNotes'))
+  const { state, dispatch } = useContext(Context)
+  const { clicked, locationCoords, localTextNotes, localSliderNotes } = state
 
-  async function updateLocationNotes () {
-    // if the notes haven't changed, don't update
-    if (textNotes === player.get('locationTextNotes') && sliderNotes === player.get('locationSliderNotes')) {
-      return
+  useEffect(() => {
+    // if the local context notes haven't been set, set them to the server side notes which are all 5/10. This is a one-time operation.
+    console.log('setting notes')
+    if (Object.keys(localSliderNotes).length === 0) {
+      dispatch({ type: 'SET_LOCATION_SLIDER_NOTES', payload: serverSideSliderNotes })
     }
-    console.log('updating notes')
-    player.set('locationTextNotes', textNotes)
-    player.set('locationSliderNotes', sliderNotes)
-    if (!visited.includes(clicked)) {
-      player.set('visited', [...visited, clicked])
-    }
-  }
+  }, [])
+
+  // async function updateLocationNotes () {
+  //   // if the notes haven't changed, don't update
+  //   if (textNotes === player.get('locationTextNotes') && sliderNotes === player.get('locationSliderNotes')) {
+  //     return
+  //   }
+  //   console.log('updating notes')
+  //   player.set('locationTextNotes', textNotes)
+  //   player.set('locationSliderNotes', sliderNotes)
+  //   if (!visited.includes(clicked)) {
+  //     player.set('visited', [...visited, clicked])
+  //   }
+  // }
 
   return (
     <div className={`${styles.bwSection} basis-1/4`}>
@@ -45,28 +53,30 @@ export function Notes () {
       <h3 className='mb-2'>Rank {clicked} on the following factors:</h3>
       <form>
         <div className='flex flex-col gap-2 mb-3'>
-          {Object.keys(sliderNotes[clicked]).map((slider, i) => (
-            <SliderInput
-              key={i}
-              value={sliderNotes[clicked][slider]}
-              label={slider}
-              handleChange={(e) => setSliderNotes({ ...sliderNotes, [clicked]: { ...sliderNotes[clicked], [slider]: e.target.value } })}
-            />
-          ))}
+          {Object.keys(localSliderNotes).length !== 0 &&
+            Object.keys(localSliderNotes[clicked]).map((slider, i) => (
+              <SliderInput
+                key={i}
+                value={localSliderNotes[clicked][slider]}
+                label={slider}
+                handleChange={(e) => dispatch({ type: 'SET_LOCATION_SLIDER_NOTES', payload: { ...localSliderNotes, [clicked]: { ...localSliderNotes[clicked], [slider]: e.target.value } } })}
+              />
+            ))
+          }
         </div>
         <TextInput
           className='w-full h-32'
-          value={textNotes[clicked]}
+          value={localTextNotes[clicked]}
           area
-          handleChange={(e) => setTextNotes({ ...textNotes, [clicked]: e.target.value })}
+          handleChange={(e) => dispatch({ type: 'SET_LOCATION_TEXT_NOTES', payload: { ...localTextNotes, [clicked]: e.target.value } })}
         />
-        <Button
+        {/* <Button
           className='w-full'
           primary
           handleClick={updateLocationNotes}
         >
           Save
-        </Button>
+        </Button> */}
       </form>
     </div>
   )

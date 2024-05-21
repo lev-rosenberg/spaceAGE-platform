@@ -10,14 +10,14 @@ const initialState = {
     { name: 'Argyre', x: 1330, y: 1190 },
     { name: 'Casius', x: 2600, y: 500 },
     { name: 'Diacria', x: 350, y: 300 },
-    { name: 'Eridania', x: 3150, y: 1140 }]
-  // locationTextNotes: {
-  //   Argyre: '',
-  //   Casius: '',
-  //   Diacria: '',
-  //   Eridania: ''
-  // },
-  // locationSliderNotes: {}
+    { name: 'Eridania', x: 3150, y: 1140 }],
+  localTextNotes: {
+    Argyre: '',
+    Casius: '',
+    Diacria: '',
+    Eridania: ''
+  },
+  localSliderNotes: {}
 }
 
 const reducer = (state, action) => {
@@ -30,6 +30,10 @@ const reducer = (state, action) => {
       return { ...state, scale: action.payload }
     case 'SET_LAYER_DIMS':
       return { ...state, layerDims: action.payload }
+    case 'SET_LOCATION_TEXT_NOTES':
+      return { ...state, localTextNotes: action.payload }
+    case 'SET_LOCATION_SLIDER_NOTES':
+      return { ...state, localSliderNotes: action.payload }
     default:
       return state
   }

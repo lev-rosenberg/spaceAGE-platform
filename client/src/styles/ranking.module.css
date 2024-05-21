@@ -1,0 +1,6 @@
+.container {
+  width: 100%;
+  background-color: var(--accent-blue);
+  border-radius: 6px;
+  padding: 0.5rem;
+}

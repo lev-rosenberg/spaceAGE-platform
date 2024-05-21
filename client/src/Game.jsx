@@ -24,7 +24,7 @@ export function Game () {
           <Profile />
           <Stage />
         </div>
-        {playerCount > 1 && stage.get('name').includes('Ranking' || 'intervention') && (
+        {playerCount > 1 && stage.get('name').includes('Team' || 'intervention') && (
           <div className="h-full w-128 border-l flex justify-center items-center">
             <Chat scope={game} attribute="chat" />
           </div>
