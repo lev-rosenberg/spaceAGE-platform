@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 
-.map .bwSection {
+.bwSection {
   background-color: var(--dark-grey);
   border-bottom: 3px solid var(--primary-white);
   color: var(--primary-white);

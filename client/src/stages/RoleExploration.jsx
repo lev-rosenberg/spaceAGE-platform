@@ -38,10 +38,9 @@ export function RoleExploration () {
     }
     const container = document.getElementById('main')
     const rect = container.getBoundingClientRect()
-    const newScale = rect.width / img.width
     if (container) {
       setContainerDims({ width: rect.width, height: rect.height })
-      dispatch({ type: 'SET_SCALE', payload: newScale })
+      dispatch({ type: 'SET_SCALE', payload: rect.width / img.width })
     }
     handleWindowResize()
 
@@ -91,20 +90,19 @@ export function RoleExploration () {
     if (layer) {
       const layerWidth = layer.width()
       const layerHeight = layer.height()
-      dispatch({ type: 'SET_LAYER_DIMS', payload: { width: layer.width(), height: layer.height() } })
       const zoomFactor = 2.5
       layer.to({
         x: layerWidth / 2 - (location.x * scale * zoomFactor),
         y: layerHeight / 2 - (location.y * scale * zoomFactor),
         scaleX: zoomFactor,
         scaleY: zoomFactor,
-        duration: 0.2
+        duration: 0.3
       })
       dispatch({ type: 'SET_CLICKED', payload: location.name })
     }
   }
 
-  function handleReturnToFullSize () {
+  function handleReturnToFullSize (newLocation) {
     const layer = layerRef.current
     if (layer) {
       layer.to({
@@ -112,27 +110,29 @@ export function RoleExploration () {
         y: 0,
         scaleX: 1,
         scaleY: 1,
-        duration: 0.2
+        duration: 0.3
       })
-      dispatch({ type: 'SET_CLICKED', payload: null })
     }
+
+    setTimeout(() => {
+      // if the notes haven't changed, don't update
+      if (isEqual(localTextNotes, player.get('locationTextNotes')) && isEqual(localSliderNotes, player.get('locationSliderNotes'))) {
+        dispatch({ type: 'SET_CLICKED', payload: newLocation })
+      } else {
+        // otherwise, update the notes and add the location to the visited list
+        // set 0.5 sec timer to allow the map to zoom out before updating the notes
+        player.set('locationTextNotes', localTextNotes)
+        player.set('locationSliderNotes', localSliderNotes)
+        if (!visited.includes(clicked)) {
+          player.set('visited', [...visited, clicked])
+        }
+        dispatch({ type: 'SET_CLICKED', payload: newLocation })
+      }
+    }, 350)
   }
 
   function handleBackClick () {
-    handleReturnToFullSize()
-    // if the notes haven't changed, don't update
-    if (isEqual(localTextNotes, player.get('locationTextNotes')) && isEqual(localSliderNotes, player.get('locationSliderNotes'))) {
-      return
-    }
-    // otherwise, update the notes and add the location to the visited list
-    // set 0.5 sec timer to allow the map to zoom out before updating the notes
-    setTimeout(() => {
-      player.set('locationTextNotes', localTextNotes)
-      player.set('locationSliderNotes', localSliderNotes)
-      if (!visited.includes(clicked)) {
-        player.set('visited', [...visited, clicked])
-      }
-    }, 500)
+    handleReturnToFullSize(null)
   }
 
   return (
@@ -165,7 +165,17 @@ export function RoleExploration () {
           )}
         </div>
         {clicked && (
-          <Notes handleReturnToFullSize={handleReturnToFullSize}/>
+          <div className='flex'>
+            {(visited.length === 4) && (
+              <Button
+                handleClick={() => player.stage.set('submit', true)}
+                className='my-1 mx-3 self-end'>
+                Next Stage
+              </Button>
+            )}
+            <Notes handleReturnToFullSize={handleReturnToFullSize}/>
+          </div>
+
         )}
         {!clicked && visited.length === 4 && (
           <Button
@@ -175,7 +185,7 @@ export function RoleExploration () {
           </Button>
         )}
       </div>
-      <Map scaledDims={scaledDims} layerRef={layerRef} handleZoomToLocation={handleZoomToLocation} />
+      <Map scaledDims={scaledDims} layerRef={layerRef} handleZoomToLocation={handleZoomToLocation}/>
     </div>
   )
 }

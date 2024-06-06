@@ -5,7 +5,7 @@ import React from 'react'
 
 import { InstructionsStage } from './stages/InstructionsStage'
 import { RoleExploration } from './stages/RoleExploration'
-import { RankingTask } from './stages/RankingTask'
+import { RankingStage } from './stages/RankingStage'
 import { StageInstructions } from './components/StageInstructions'
 
 export function Stage () {
@@ -24,19 +24,20 @@ export function Stage () {
       </div>
     )
   }
+  const currStageName = stage.get('name') !== 'intervention' ? stage.get('name') : stage.get('placement')
 
   const CurrentStage = () => {
-    switch (stage.get('name')) {
+    switch (currStageName) {
       case 'Instructions':
         return <InstructionsStage />
       case 'Role Exploration':
         return <RoleExploration />
       case 'Individual Ranking':
-        return <RankingTask />
+        return <RankingStage />
       case 'Team Ranking':
-        return <RankingTask />
+        return <RankingStage />
       case 'Multi-Team Ranking':
-        return <RankingTask />
+        return <RankingStage />
       default:
         return <Loading />
     }

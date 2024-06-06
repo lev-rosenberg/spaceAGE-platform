@@ -1,6 +1,52 @@
-.container {
+.rankingStage {
   width: 100%;
   background-color: var(--accent-blue);
   border-radius: 6px;
   padding: 0.5rem;
+  display: flex;
+}
+
+.rankingStage .bwSection {
+  background-color: var(--dark-grey);
+  border-bottom: 3px solid var(--primary-white);
+  color: var(--primary-white);
+  padding: 1rem 1rem;
+  overflow: scroll;
+}
+
+.ranking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.ranking li {
+  display: flex;
+  list-style: none;
+  padding: 0.5rem;
+  width: 20rem;
+  height: 3rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ranking .rankNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-color: lightgrey;
+}
+
+.ranking .rankNumber span {
+  font-size: 14px;
+  color: var(--dark-grey);
+}
+
+.ranking .sortHandle {
+  color: var(--accent-blue);
 }

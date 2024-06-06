@@ -1,50 +1,58 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Button } from './Button'
 import { TextInput } from './TextInput'
 import { Context } from '../context'
 import { SliderInput } from './SliderInput'
 import styles from '../styles/map.module.css'
-import { usePlayer } from '@empirica/core/player/classic/react'
+import { usePlayer, useStage } from '@empirica/core/player/classic/react'
 
-export function Notes () {
+export function Notes ({ handleReturnToFullSize }) {
   const player = usePlayer()
   const serverSideSliderNotes = player.get('locationSliderNotes')
-  // const [textNotes, setTextNotes] = useState(serverSideTextNotes)
-  // const [sliderNotes, setSliderNotes] = useState(serverSideSliderNotes)
-
+  const stage = useStage()
   const { state, dispatch } = useContext(Context)
   const { clicked, locationCoords, localTextNotes, localSliderNotes } = state
 
   useEffect(() => {
-    // if the local context notes haven't been set, set them to the server side notes which are all 5/10. This is a one-time operation.
-    console.log('setting notes')
+    /*
+      if the local context notes haven't been set, set them to the server side notes which are all 5/10. This is a one-time operation.
+      this is needed because we can't access player data in the context provider, and which sliders players see depends on player data.
+    */
     if (Object.keys(localSliderNotes).length === 0) {
       dispatch({ type: 'SET_LOCATION_SLIDER_NOTES', payload: serverSideSliderNotes })
     }
+    if (!clicked) {
+      dispatch({ type: 'SET_CLICKED', payload: locationCoords[0].name })
+    }
   }, [])
 
-  // async function updateLocationNotes () {
-  //   // if the notes haven't changed, don't update
-  //   if (textNotes === player.get('locationTextNotes') && sliderNotes === player.get('locationSliderNotes')) {
-  //     return
-  //   }
-  //   console.log('updating notes')
-  //   player.set('locationTextNotes', textNotes)
-  //   player.set('locationSliderNotes', sliderNotes)
-  //   if (!visited.includes(clicked)) {
-  //     player.set('visited', [...visited, clicked])
-  //   }
-  // }
+  function handleButtonClick (location) {
+    /*
+      1. If the location clicked is the same as the current location, return
+      2. If we are in the Role Exploration stage, return to full size, set the player's notes to the local notes, and update the visited array
+        a. Why must we return to full size? The canvas rerenders to full size whenever we update data on the emprica server. This is a workaround
+           that makes the transition to full size less jarring.
+        b. Then in the Map.jsx component, we zoom to the location.
+      3. In either case (Role Exploration or not), set the clicked location to the location clicked
+    */
+    if (location.name === clicked) { return }
+    if (stage.get('name') === 'Role Exploration') {
+      handleReturnToFullSize(location.name)
+      // dispatch({ type: 'SET_CLICKED', payload: location.name })
+    } else {
+      dispatch({ type: 'SET_CLICKED', payload: location.name })
+    }
+  }
 
   return (
-    <div className={`${styles.bwSection} basis-1/4`}>
-      {/* <h3 className='mb-1'>Notes:</h3> */}
+    <div className={`${styles.bwSection}`}>
       <div className='grid grid-cols-2 gap-2 pb-3'>
         {locationCoords.map((location, i) => (
           <Button
             key={i}
             className={`w-auto ${clicked === location.name && 'clicked'}`}
+            handleClick={() => handleButtonClick(location)}
             >
             {location.name}
           </Button>
@@ -70,13 +78,6 @@ export function Notes () {
           area
           handleChange={(e) => dispatch({ type: 'SET_LOCATION_TEXT_NOTES', payload: { ...localTextNotes, [clicked]: e.target.value } })}
         />
-        {/* <Button
-          className='w-full'
-          primary
-          handleClick={updateLocationNotes}
-        >
-          Save
-        </Button> */}
       </form>
     </div>
   )

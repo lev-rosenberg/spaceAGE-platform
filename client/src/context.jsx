@@ -5,11 +5,10 @@ const initialState = {
   hovering: null,
   clicked: null,
   scale: 1,
-  layerDims: { width: 0, height: 0 },
   locationCoords: [
-    { name: 'Argyre', x: 1330, y: 1190 },
-    { name: 'Casius', x: 2600, y: 500 },
     { name: 'Diacria', x: 350, y: 300 },
+    { name: 'Casius', x: 2600, y: 500 },
+    { name: 'Argyre', x: 1330, y: 1190 },
     { name: 'Eridania', x: 3150, y: 1140 }],
   localTextNotes: {
     Argyre: '',
@@ -28,8 +27,6 @@ const reducer = (state, action) => {
       return { ...state, clicked: action.payload }
     case 'SET_SCALE':
       return { ...state, scale: action.payload }
-    case 'SET_LAYER_DIMS':
-      return { ...state, layerDims: action.payload }
     case 'SET_LOCATION_TEXT_NOTES':
       return { ...state, localTextNotes: action.payload }
     case 'SET_LOCATION_SLIDER_NOTES':

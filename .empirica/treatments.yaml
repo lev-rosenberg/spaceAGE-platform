@@ -20,13 +20,13 @@ factors:
       - value: "wizard"
       - value: "popup"
 treatments:
-  - desc: "2 player game, popup AI after the individual stage"
+  - desc: "2 player game, popup AI after the team stage"
     factors:
       playerCount: 2
-      interventionPlacement: "individual"
+      interventionPlacement: "team"
       aiVariation: "popup"
-    name: 2 players, popup AI post-individual
-  - desc: "4-player game, popup AI after the individual stage"
+    name: 2 players, popup AI post-team
+  - desc: "4-player game, popup AI after the team stage"
     factors:
       playerCount: 4
       interventionPlacement: "individual"

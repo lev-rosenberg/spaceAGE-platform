@@ -8,26 +8,16 @@ import useImage from 'use-image'
 export function Map ({ scaledDims, layerRef, handleZoomToLocation }) {
   const [image] = useImage('mars-atlas.png')
   const { state } = useContext(Context)
-  const { scale, clicked, locationCoords, layerDims } = state
+  const { locationCoords, clicked } = state
 
-  // useEffect(() => {
-  //   console.log('Map rendered in useEffect...')
-  //   const layer = layerRef.current
-  //   const location = locationCoords.find((loc) => loc.name === clicked)
-  //   console.log('location zoom', layerDims, location)
-  //   if (layer && layerDims.width && layerDims.height && clicked) {
-  //     const zoomFactor = 2.5
-  //     const location = locationCoords.find((loc) => loc.name === clicked)
-  //     console.log('location zoom', layerDims, location)
-  //     layer.to({
-  //       x: layerDims.width / 2 - (location.x * scale * zoomFactor),
-  //       y: layerDims.height / 2 - (location.y * scale * zoomFactor),
-  //       scaleX: zoomFactor,
-  //       scaleY: zoomFactor,
-  //       duration: 0
-  //     })
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (clicked !== null) {
+      setTimeout(() => {
+        const location = locationCoords.find((loc) => loc.name === clicked)
+        handleZoomToLocation(location)
+      }, 1)
+    }
+  }, [clicked])
 
   return (
     <Stage
@@ -41,7 +31,6 @@ export function Map ({ scaledDims, layerRef, handleZoomToLocation }) {
           <LocationTarget
             key={location.name}
             location = {location}
-            zoomInCallback = {(location) => handleZoomToLocation(location)}
             />
         ))}
       </Layer>

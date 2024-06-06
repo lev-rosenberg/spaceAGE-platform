@@ -4,7 +4,7 @@ import { Context } from '../context'
 import { Circle, Line, Group, Text, Rect } from 'react-konva'
 import { usePlayer } from '@empirica/core/player/classic/react'
 
-export default function LocationTarget ({ location, zoomInCallback }) {
+export default function LocationTarget ({ location }) {
   const player = usePlayer()
   const { state, dispatch } = useContext(Context)
   const { scale, hovering, clicked } = state
@@ -28,7 +28,7 @@ export default function LocationTarget ({ location, zoomInCallback }) {
   }
 
   function handleClick (e) {
-    zoomInCallback(location)
+    dispatch({ type: 'SET_CLICKED', payload: location.name })
     handleMouseLeave(e)
   }
 
