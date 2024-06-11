@@ -6,21 +6,36 @@ export function SliderInput ({
   handleChange,
   label,
   value,
-  step = 1
+  dark = false,
+  disabled = false,
+  id = 'slider',
+  step = 0.1,
+  min = 0,
+  max = 10
 }) {
   return (
     <div className="flex flex-col items-start justify-center">
       <label className={styles.label}>{label}</label>
       <div className='flex w-full h-full'>
         <input
+          id={id}
+          style={{ width: '100%' }}
           type="range"
           value={value}
           onChange={handleChange}
-          min={0}
-          max={10}
-          step={0.1}
+          min={min}
+          max={max}
+          step={step}
+          disabled={disabled}
         />
-        <output className='text-sm'>{Math.floor(value)}/10</output>
+        <style>
+          {dark && `
+            #confidenceSlider::-webkit-slider-thumb {
+              background-color: #001dc2;
+            }
+          `}
+        </style>
+        <output className='text-sm'>{Math.floor(value)}/{max}</output>
       </div>
 
     </div>

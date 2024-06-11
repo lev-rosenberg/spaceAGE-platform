@@ -1,9 +1,23 @@
 .rankingStage {
+  height: 100%;
   width: 100%;
   background-color: var(--accent-blue);
   border-radius: 6px;
   padding: 0.5rem;
   display: flex;
+  overflow: auto;
+}
+
+.rankingStage .centerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 1rem;
+  height: 100%;
+  width: 50%;
+  margin: 0 auto;
+  overflow: scroll;
 }
 
 .rankingStage .bwSection {
@@ -11,21 +25,23 @@
   border-bottom: 3px solid var(--primary-white);
   color: var(--primary-white);
   padding: 1rem 1rem;
-  overflow: scroll;
 }
 
 .ranking {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem;
+  width: 100%;
+}
+
+.ranking ol {
+  width: 100%;
 }
 
 .ranking li {
   display: flex;
   list-style: none;
   padding: 0.5rem;
-  width: 20rem;
   height: 3rem;
   justify-content: space-between;
   align-items: center;
