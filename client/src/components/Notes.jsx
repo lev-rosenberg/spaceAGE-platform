@@ -45,6 +45,11 @@ export function Notes ({ handleReturnToFullSize }) {
     }
   }
 
+  function handleLocalChange (type, payload) {
+    if (stage.get('name') !== 'Role Exploration') { return }
+    dispatch({ type, payload })
+  }
+
   return (
     <div className={`${styles.bwSection}`}>
       <div className='grid grid-cols-2 gap-2 pb-3'>
@@ -59,7 +64,9 @@ export function Notes ({ handleReturnToFullSize }) {
         ))}
       </div>
       <h3 className='mb-2'>Rank {clicked} on the following factors:</h3>
-      <form>
+      <form
+        disabled={true}
+        >
         <div className='flex flex-col gap-2 mb-3'>
           {Object.keys(localSliderNotes).length !== 0 &&
             Object.keys(localSliderNotes[clicked]).map((slider, i) => (
@@ -67,7 +74,7 @@ export function Notes ({ handleReturnToFullSize }) {
                 key={i}
                 value={localSliderNotes[clicked][slider]}
                 label={slider}
-                handleChange={(e) => dispatch({ type: 'SET_LOCATION_SLIDER_NOTES', payload: { ...localSliderNotes, [clicked]: { ...localSliderNotes[clicked], [slider]: e.target.value } } })}
+                handleChange={(e) => handleLocalChange('SET_LOCATION_SLIDER_NOTES', { ...localSliderNotes, [clicked]: { ...localSliderNotes[clicked], [slider]: e.target.value } })}
               />
             ))
           }
@@ -75,8 +82,9 @@ export function Notes ({ handleReturnToFullSize }) {
         <TextInput
           className='w-full h-32'
           value={localTextNotes[clicked]}
+          disabled={stage.get('name') !== 'Role Exploration'}
           area
-          handleChange={(e) => dispatch({ type: 'SET_LOCATION_TEXT_NOTES', payload: { ...localTextNotes, [clicked]: e.target.value } })}
+          handleChange={(e) => handleLocalChange('SET_LOCATION_TEXT_NOTES', { ...localTextNotes, [clicked]: e.target.value })}
         />
       </form>
     </div>

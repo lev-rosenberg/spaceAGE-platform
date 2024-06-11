@@ -52,6 +52,8 @@ Empirica.onGameStart(({ game }) => {
     }
     // 3a: Set individual rankings
     player.set('individual-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
+    player.set('individual-reasoning', '')
+    player.set('individual-confidence', 0)
   }
   // 3b, 3c: Set team, mts rankings
   round.set('shf-team-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])

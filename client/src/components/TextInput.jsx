@@ -17,7 +17,8 @@ export function TextInput ({
   required = false,
   autoFocus = false,
   placeholder = '',
-  area = false
+  area = false,
+  disabled = false
 }) {
   if (area) {
     return (
@@ -31,6 +32,7 @@ export function TextInput ({
         onChange={handleChange}
         className={`leading-4 ${primary ? 'prim' : 'sec'} ${className}`}
         placeholder={placeholder}
+        disabled={disabled}
       >
         {children}
       </textarea>
@@ -48,6 +50,7 @@ export function TextInput ({
         onChange={handleChange}
         className={`${primary ? 'prim' : 'sec'} ${className}`}
         placeholder={placeholder}
+        disabled={disabled}
       >
         {children}
       </input>
