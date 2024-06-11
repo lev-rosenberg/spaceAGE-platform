@@ -51,7 +51,7 @@ export function Notes ({ handleReturnToFullSize }) {
   }
 
   return (
-    <div className={`${styles.bwSection}`}>
+    <div className={`${styles.bwSection} ${styles.notes}`}>
       <div className='grid grid-cols-2 gap-2 pb-3'>
         {locationCoords.map((location, i) => (
           <Button

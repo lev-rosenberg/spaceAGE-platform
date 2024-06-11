@@ -23,8 +23,8 @@ Empirica.onGameStart(({ game }) => {
   const round = game.addRound({ name: 'Round' })
   // round.addStage({ name: 'Walkthrough', duration: 120 })
   // round.addStage({ name: 'Instructions', duration: 120 })
-  round.addStage({ name: 'Role Exploration', duration: 60 })
-  round.addStage({ name: 'Individual Ranking', duration: 60 })
+  round.addStage({ name: 'Role Exploration', duration: 5 })
+  round.addStage({ name: 'Individual Ranking', duration: 600 })
   if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 6000 })
   round.addStage({ name: 'Team Ranking', duration: 600 })
   if (interventionPlacement === 'team') round.addStage({ name: 'intervention', placement: 'Team Ranking', duration: 600 })
@@ -46,19 +46,15 @@ Empirica.onGameStart(({ game }) => {
       player.set('role', role)
     }
     if (role.split(' ')[1] === 'Specialist') {
-      player.set('team', 'Planetary Geology Team')
+      player.set('team', 'planetary-geology-team')
     } else {
-      player.set('team', 'Space Human Factors')
+      player.set('team', 'space-human-factors')
     }
     // 3a: Set individual rankings
     player.set('individual-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
     player.set('individual-reasoning', '')
     player.set('individual-confidence', 0)
   }
-  // 3b, 3c: Set team, mts rankings
-  round.set('shf-team-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
-  round.set('pgt-team-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
-  round.set('mts-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
 
   // 4: Set the initial location notes for each player
   for (const player of players) {
@@ -71,7 +67,7 @@ Empirica.onGameStart(({ game }) => {
     player.set('locationTextNotes', locationTextNotes)
     const locationSliderNotes = {}
     for (const location of ['Argyre', 'Casius', 'Diacria', 'Eridania']) {
-      if (team === 'Planetary Geology Team') {
+      if (team === 'planetary-geology-team') {
         locationSliderNotes[location] = {
           'Safe landing & receiving re-supply capsules': 5,
           'Access to sunlight & favorable atmosphere': 5,
@@ -90,9 +86,26 @@ Empirica.onGameStart(({ game }) => {
   }
 })
 
-Empirica.onRoundStart(({ round }) => {})
+Empirica.onRoundStart(({ round }) => {
+  // 3b, 3c: Set team, mts rankings
+  round.set('space-human-factors-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
+  round.set('space-human-factors-reasoning', '')
+  round.set('space-human-factors-confidence', 0)
 
-Empirica.onStageStart(({ stage }) => {})
+  round.set('planetary-geology-team-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
+  round.set('planetary-geology-team-reasoning', '')
+  round.set('planetary-geology-team-confidence', 0)
+
+  round.set('mts-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
+  round.set('mts-reasoning', '')
+  round.set('mts-confidence', 0)
+})
+
+Empirica.onStageStart(({ stage }) => {
+  // stage.set('ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
+  // stage.set('reasoning', '')
+  // stage.set('confidence', 0)
+})
 
 Empirica.onStageEnded(({ stage }) => {})
 

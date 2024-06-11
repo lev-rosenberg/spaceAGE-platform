@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useStage, useGame, usePlayer } from '@empirica/core/player/classic/react'
+import { useStage, useGame, usePlayer, useRound } from '@empirica/core/player/classic/react'
 import { Chat } from '../components/Chat'
 import { RankingTask } from '../components/RankingTask'
 import { Notes } from '../components/Notes'
@@ -12,6 +12,7 @@ export function RankingStage () {
   const game = useGame()
   const stage = useStage()
   const player = usePlayer()
+  const round = useRound()
   const { playerCount } = game.get('treatment')
   const currStageName = stage.get('name') !== 'intervention' ? stage.get('name') : stage.get('placement')
   const [reasoning, setReasoning] = useState('')
@@ -24,8 +25,16 @@ export function RankingStage () {
     } else if (finishedStep === 2) {
       setFinishedStep(3)
     } else {
-      player.set('individual-reasoning', reasoning)
-      player.set('individual-confidence', convidenceValue)
+      if (currStageName === 'Individual Ranking') {
+        player.set('individual-reasoning', reasoning)
+        player.set('individual-confidence', convidenceValue)
+      } else if (currStageName === 'Team Ranking') {
+        round.set(`${player.get('team')}-reasoning`, reasoning)
+        round.set(`${player.get('team')}-confidence`, convidenceValue)
+      } else if (currStageName === 'Multi-Team Ranking') {
+        round.set('mts-reasoning', reasoning)
+        round.set('mts-confidence', convidenceValue)
+      }
       player.stage.set('submit', true)
     }
   }

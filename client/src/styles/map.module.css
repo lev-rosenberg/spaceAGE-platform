@@ -31,3 +31,7 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+.map .notes {
+  width: 20rem;
+}

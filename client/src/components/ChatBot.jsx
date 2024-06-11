@@ -49,8 +49,10 @@ export async function ChatBot ({
       const valObject = msg.val._value
       msg.name = valObject.sender.name
       msg.text = valObject.text
+      return msg
     })
 
+    // eslint-disable-next-line array-callback-return
     const messages = df.map((msg) => {
       if (msg.name !== undefined && msg.text !== undefined) {
         return {
