@@ -37,7 +37,7 @@ export async function ChatBot ({
   }
 
   const openAI = new OpenAI({
-    apiKey: 'YOUR_OPENAI_API_KEY',
+    apiKey: import.meta.env.VITE_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true // should move these requests over to a Node server in a production app.
   }) // Initialize OpenAI instance with your API key
 
