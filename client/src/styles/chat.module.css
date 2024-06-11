@@ -11,3 +11,9 @@
 .msg {
   color: var(--primary-white);
 }
+
+.chat textarea {
+  border: none !important;
+  color: var(--primary-white);
+  font-size: 12px;
+}
