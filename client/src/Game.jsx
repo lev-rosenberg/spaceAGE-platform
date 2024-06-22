@@ -1,7 +1,7 @@
 import { usePlayer, useStage } from '@empirica/core/player/classic/react'
 import React, { useEffect } from 'react'
 import { ContextProvider } from './context'
-import { Profile } from './Profile'
+import { Profile } from './components/Profile'
 import { Stage } from './Stage'
 
 export function Game () {

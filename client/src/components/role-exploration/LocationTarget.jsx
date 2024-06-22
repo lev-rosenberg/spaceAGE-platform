@@ -1,10 +1,21 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useEffect, useState, useRef } from 'react'
-import { Context } from '../context'
+import { Context } from '../../context'
 import { Circle, Line, Group, Text, Rect } from 'react-konva'
 import { usePlayer } from '@empirica/core/player/classic/react'
 
 export default function LocationTarget ({ location }) {
+  /* 
+    Parameters: 
+      - location (object): the location objects for each location in the study
+    Returns:
+      - LocationTarget component for the Role Exploration stage
+    Description:
+      - This component is responsible for rendering the target locations on the map.
+      - It displays the target locations as concentric circles on the map with the location name displayed on hover.
+      - The color of the circles is determined by whether the location has been visited or not.
+  */
+
   const player = usePlayer()
   const { state, dispatch } = useContext(Context)
   const { scale, hovering, clicked } = state

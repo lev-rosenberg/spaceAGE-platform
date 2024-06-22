@@ -1,6 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { createContext, useReducer } from 'react'
 
+/*
+  Description:
+  - This file contains the context for the study. It is used to store the local state of the study, 
+    such as the the text notes that players take on each location. This is seperate from data stored
+    on the emprica server. I use both because updating the server causes a re-render, which I often don't want.
+*/
+
 const initialState = {
   hovering: null,
   clicked: null,

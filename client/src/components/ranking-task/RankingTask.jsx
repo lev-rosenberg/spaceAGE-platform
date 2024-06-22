@@ -4,7 +4,6 @@ import {
   closestCenter,
   MouseSensor,
   TouchSensor,
-  DragOverlay,
   useSensor,
   useSensors
 } from '@dnd-kit/core'
@@ -15,26 +14,25 @@ import {
 } from '@dnd-kit/sortable'
 import {
   restrictToVerticalAxis,
-  restrictToWindowEdges
 } from '@dnd-kit/modifiers'
 import { usePlayer, useRound, useStage } from '@empirica/core/player/classic/react'
-import SortableLocationItem from './SortableLocationItem'
-import LocationItem from './LocationItem'
-import styles from '../styles/ranking.module.css'
+import SortableRankingItem from './SortableRankingItem'
+import styles from '../../styles/ranking.module.css'
 
 export function RankingTask () {
+  /*
+    Description: 
+    - This parent component is responsible for rendering the ranking task. It uses the dnd-kit library to enable drag-and-drop functionality.
+    - It is based on these examples: https://codesandbox.io/examples/package/@dnd-kit/sortable
+  */
   const player = usePlayer()
   const stage = useStage()
   const round = useRound()
   const currStageName = stage.get('name') !== 'intervention' ? stage.get('name') : stage.get('placement')
   const stageLocationRankings = currStageName === 'Individual Ranking' ? player.get('individual-ranking') : currStageName === 'Team Ranking' ? round.get(`${player.get('team')}-ranking`) : round.get('mts-ranking')
   const [locationRankings, setLocationRankings] = useState(stageLocationRankings)
-  const [activeId, setActiveId] = useState(null)
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor))
 
-  function handleDragStart (event) {
-    setActiveId(event.active.id)
-  }
   function handleDragEnd (event) {
     const { active, over } = event
     if (active.id !== over?.id) {
@@ -51,31 +49,22 @@ export function RankingTask () {
         round.set('mts-ranking', newItems)
       }
     }
-    setActiveId(null)
   };
   return (
     <div className={styles.ranking}>
       <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
-      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       modifiers={[restrictToVerticalAxis]}
     >
       <SortableContext items={locationRankings} strategy={verticalListSortingStrategy}>
         <ol className="flex flex-col gap-0.75">
           {stageLocationRankings.map((location, i) => (
-              <SortableLocationItem key={location} rank={i} id={location}/>
+              <SortableRankingItem key={location} rank={i} id={location}/>
           ))}
         </ol>
       </SortableContext>
-      <DragOverlay modifiers={[restrictToWindowEdges]}>
-        {activeId
-          ? (
-          <LocationItem id={activeId} isDragOverlay />
-            )
-          : null}
-      </DragOverlay>
     </DndContext>
   </div>
   )

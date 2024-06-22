@@ -4,6 +4,16 @@ import styles from '../styles/login.module.css'
 import { TextInput } from '../components/TextInput'
 
 export function MyPlayerForm ({ onPlayerID, connecting }) {
+  /* 
+    Parameters: unsure, this is from the Empirica boilerplate
+    Returns:
+    - MyPlayerForm component for the login screen
+    Description:
+    - This component is responsible for rendering the login screen for the player.
+    - It asks the player to enter their name and identifier. 
+    - We store their name in local storage based with the key `name-${playerID}`. We do this so that we can display their name in the game.
+  */
+
   // For the text input field.
   const [playerName, setPlayerName] = useState('')
   const [playerID, setPlayerID] = useState('')

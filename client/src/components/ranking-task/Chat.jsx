@@ -9,7 +9,7 @@ import { usePlayer } from '@empirica/core/player/classic/react'
 import { ChatBot } from './ChatBot'
 import LinearProgress from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
-import styles from '../styles/chat.module.css'
+import styles from '../../styles/chat.module.css'
 
 export function Chat ({
   scope,

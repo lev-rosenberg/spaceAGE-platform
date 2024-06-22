@@ -3,9 +3,10 @@ export const Empirica = new ClassicListenersCollector()
 
 Empirica.onGameStart(({ game }) => {
   /*
-    1. Fill round with 7 stages --> Instructions, Walkthrough, Role Exploration, Indivudual, Team, MTS, AI Variation.
+    1. Fill round with 6 stages --> Instructions, Role Exploration, Indivudual, Team, MTS, AI Variation.
       a. AI intervention placement depends on the interventionPlacement treatment condition.
-      b. TODO: add instructions and/or walkthrough stage
+      b. TODO: add instructions and stage. This is differen't from the "Introduction.jsx" included in the Empirica file structure, 
+         because that content occurs before players are assigned roles. And the instructions are 
     2. Assign each player a role, and a team.
       a. If the aiVariation treatment condition is wizard, we want to assign the AI players the roles of AI Specialist and AI Scientist.
     3. Set their location rankings for the individual team, and mts stages.
@@ -21,9 +22,8 @@ Empirica.onGameStart(({ game }) => {
 
   // 1: Create the round and stages
   const round = game.addRound({ name: 'Round' })
-  // round.addStage({ name: 'Walkthrough', duration: 120 })
   // round.addStage({ name: 'Instructions', duration: 120 })
-  round.addStage({ name: 'Role Exploration', duration: 5 })
+  round.addStage({ name: 'Role Exploration', duration: 600 })
   round.addStage({ name: 'Individual Ranking', duration: 600 })
   if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 6000 })
   round.addStage({ name: 'Team Ranking', duration: 600 })
@@ -101,11 +101,7 @@ Empirica.onRoundStart(({ round }) => {
   round.set('mts-confidence', 0)
 })
 
-Empirica.onStageStart(({ stage }) => {
-  // stage.set('ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
-  // stage.set('reasoning', '')
-  // stage.set('confidence', 0)
-})
+Empirica.onStageStart(({ stage }) => {})
 
 Empirica.onStageEnded(({ stage }) => {})
 

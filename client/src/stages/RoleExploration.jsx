@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { Button } from '../components/Button'
-import { Map } from '../components/Map'
 import styles from '../styles/map.module.css'
 import { Context } from '../context'
 import { usePlayer } from '@empirica/core/player/classic/react'
 import { Notes } from '../components/Notes'
 import { isEqual } from 'lodash'
+import { Map } from '../components/role-exploration/Map'
+import LocationInfo from '../components/role-exploration/LocationInfo'
 export function RoleExploration () {
   /*
     This component is responsible for rendering the map component and scaling it to fit the container.
@@ -152,17 +153,7 @@ export function RoleExploration () {
               {hovering ? `Location: ${hovering}` : clicked ? `Location: ${clicked}` : 'Mars World Map'}
             </div>
           </div>
-          {clicked && locationJsonData.locations && (
-            <div className={`${styles.bwSection} ${styles.locationInfo}`}>
-              <h3>This is what you know about {clicked}:</h3>
-              {locationJsonData.locations[clicked][player.get('role')].split('\n').map((line, i) => (
-                <div key={i}>
-                  <br/>
-                  <p>{line}</p>
-                </div>
-              ))}
-            </div>
-          )}
+          <LocationInfo locationJsonData={locationJsonData}/>
         </div>
         {clicked && (
           <div className='flex'>

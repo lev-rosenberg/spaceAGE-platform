@@ -2,9 +2,12 @@
 import React from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import LocationItem from './LocationItem'
+import RankingItem from './RankingItem'
 
-export default function SortableLocationItem ({ id, rank, ...props }) {
+export default function SortableRankingItem ({ id, rank, ...props }) {
+  /*
+    I'm honestly not sure why we need this wrapper component, around the RankingItem, but I just followed * tweaked examples from the dnd-kit docs.
+  */
   const {
     attributes,
     listeners,
@@ -18,7 +21,7 @@ export default function SortableLocationItem ({ id, rank, ...props }) {
     transition: transition ?? ''
   }
   return (
-    <LocationItem
+    <RankingItem
       id={id}
       rank={rank}
       ref={setNodeRef}

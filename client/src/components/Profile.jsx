@@ -2,8 +2,8 @@ import {
   usePlayer
 } from '@empirica/core/player/classic/react'
 import React from 'react'
-import { Avatar } from './components/Avatar'
-import { Timer } from './components/Timer'
+import { Avatar } from './Avatar'
+import { Timer } from './Timer'
 
 export function Profile () {
   const player = usePlayer()

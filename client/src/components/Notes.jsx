@@ -8,6 +8,15 @@ import styles from '../styles/map.module.css'
 import { usePlayer, useStage } from '@empirica/core/player/classic/react'
 
 export function Notes ({ handleReturnToFullSize }) {
+  /*
+    Parameters: 
+      - handleReturnToFullSize (function to move canvas zoom/pan to fit full size in your screen)
+    Returns: 
+      - Notes component for the Role Exploration stage
+    Description: 
+      - This component is responsible for rendering the notes section of the Role Exploration stage. 
+      - It displays the buttons to navigate to different locations & sliders and text inputs to take notes on each location.
+  */
   const player = usePlayer()
   const serverSideSliderNotes = player.get('locationSliderNotes')
   const stage = useStage()
@@ -15,9 +24,11 @@ export function Notes ({ handleReturnToFullSize }) {
   const { clicked, locationCoords, localTextNotes, localSliderNotes } = state
 
   useEffect(() => {
-    /*
-      if the local context notes haven't been set, set them to the server side notes which are all 5/10. This is a one-time operation.
-      this is needed because we can't access player data in the context provider, and which sliders players see depends on player data.
+    /* 
+    Description:
+      - If the local context notes haven't been set, set them to the server side notes which are all initially 5/10. This is a one-time operation.
+      - This is needed because different players need to see different sliders depending on team. But we can't set that in the context provider since
+        it does not have access to player data.
     */
     if (Object.keys(localSliderNotes).length === 0) {
       dispatch({ type: 'SET_LOCATION_SLIDER_NOTES', payload: serverSideSliderNotes })
@@ -29,12 +40,16 @@ export function Notes ({ handleReturnToFullSize }) {
 
   function handleButtonClick (location) {
     /*
-      1. If the location clicked is the same as the current location, return
-      2. If we are in the Role Exploration stage, return to full size, set the player's notes to the local notes, and update the visited array
-        a. Why must we return to full size? The canvas rerenders to full size whenever we update data on the emprica server. This is a workaround
-           that makes the transition to full size less jarring.
-        b. Then in the Map.jsx component, we zoom to the location.
-      3. In either case (Role Exploration or not), set the clicked location to the location clicked
+      Parameters:
+        - location (object): the location object that was clicked
+      Returns: void
+      Description:
+        1. If the location clicked is the same as the current location, return
+        2. If we are in the Role Exploration stage, return to full size, set the player's notes to the local notes, and update the visited array
+          a. Why must we return to full size? The canvas rerenders to full size whenever we update data on the emprica server. This is a workaround
+            that makes the transition to full size less jarring.
+          b. Then in the Map.jsx component, we zoom to the location.
+        3. In either case (Role Exploration or not), set the clicked location to the location clicked
     */
     if (location.name === clicked) { return }
     if (stage.get('name') === 'Role Exploration') {
@@ -46,6 +61,15 @@ export function Notes ({ handleReturnToFullSize }) {
   }
 
   function handleLocalChange (type, payload) {
+    /*
+      Parameters:
+        - type (string): the type of action to take
+        - payload (object): the payload to pass to the reducer
+      Returns: void
+      Description:
+        1. If we are not in the Role Exploration stage, return (THIS MIGHT CHANGE IN THE FUTURE)
+        2. Dispatch the action
+    */
     if (stage.get('name') !== 'Role Exploration') { return }
     dispatch({ type, payload })
   }

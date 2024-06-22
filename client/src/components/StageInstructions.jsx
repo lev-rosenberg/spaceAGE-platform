@@ -3,6 +3,10 @@ import { Button } from './Button'
 import { useStage } from '@empirica/core/player/classic/react'
 
 export function StageInstructions () {
+  /*
+    Description: This component is responsible for rendering the instructions for the current stage of the game.
+    TODO: make the instructions button functional
+  */
   const stage = useStage()
   const currentStage = stage.get('name') !== 'intervention' ? stage.get('name') : stage.get('placement')
 
