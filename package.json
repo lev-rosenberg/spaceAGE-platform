@@ -27,6 +27,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "konva": "^9.3.14",
     "lodash": "^4.17.21",
     "openai": "^4.50.0"
   }

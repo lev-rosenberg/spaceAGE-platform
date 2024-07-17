@@ -14,7 +14,7 @@ import styles from '../../styles/chat.module.css'
 export function Chat ({
   scope,
   attribute = 'messages',
-  loading: LoadingComp = Loading
+  loading: LoadingComp = Loading // add team id into chat.jsx in order to filter out team in chatbox.jsx
 }) {
   const player = usePlayer()
   const [isThinking, setIsThinking] = useState(false)
