@@ -5,9 +5,10 @@ import { Alert } from '../components/Alert'
 import { Button } from '../components/Button'
 
 export function ExitSurvey ({ next }) {
-  const labelClassName = 'block text-sm font-medium text-gray-700 my-2'
-  const inputClassName =
-    'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-empirica-500 focus:border-empirica-500 sm:text-sm'
+  // label text text-gray-900
+  const labelClassName = 'block text-sm font-medium text-gray-900 my-2'
+  const inputClassName = // updated to include better text color text-gray-900
+    'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-empirica-500 focus:border-empirica-500 sm:text-sm'
   const player = usePlayer()
 
   const [age, setAge] = useState('')
@@ -34,16 +35,16 @@ export function ExitSurvey ({ next }) {
     setEducation(e.target.value)
   }
 
-  return (
-    <div className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Alert title="Bonus">
-        <p>
+  return ( //
+    <div className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg">
+      <Alert title={<span className="text-gray-900 font-bold">Bonus</span>}>
+        <p className="text-gray-900">
           Please submit the following code to receive your bonus:{' '}
-          <strong>{player.id}</strong>.
+          <strong className="text-black">{player.id}</strong>.
         </p>
-        <p className="pt-1">
-          Your final <strong>bonus</strong> is in addition of the{' '}
-          <strong>1 base reward</strong> for completing the HIT.
+        <p className="pt-1 text-gray-900">
+          Your final <strong className="text-black">bonus</strong> is in addition of the{' '}
+          <strong className="text-black">1 base reward</strong> for completing the HIT.
         </p>
       </Alert>
 
@@ -51,7 +52,7 @@ export function ExitSurvey ({ next }) {
         className="mt-12 space-y-8 divide-y divide-gray-200"
         onSubmit={handleSubmit}
       >
-        <div className="space-y-8 divide-y divide-gray-200">
+        <div className="space-y-8">
           <div>
             <div>
               <h3 className="text-lg leading-6 font-medium text-gray-900">
@@ -63,7 +64,7 @@ export function ExitSurvey ({ next }) {
               </p>
             </div>
 
-            <div className="space-y-8 mt-6">
+            <div className="space-y-8 mt-6 p-4">
               <div className="flex flex-row">
                 <div>
                   <label htmlFor="email" className={labelClassName}>
@@ -191,7 +192,7 @@ export function ExitSurvey ({ next }) {
 
 export function Radio ({ selected, name, value, label, onChange }) {
   return (
-    <label className="text-sm font-medium text-gray-700">
+    <label className="text-sm font-medium text-gray-900">
       <input
         className="mr-2 shadow-sm sm:text-sm"
         type="radio"
