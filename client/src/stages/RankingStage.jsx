@@ -34,15 +34,36 @@ export function RankingStage () {
       } else if (currStageName === 'Multi-Team Ranking') {
         round.set('mts-reasoning', reasoning)
         round.set('mts-confidence', convidenceValue)
+        game.set('multiTeamRankingComplete', true) // Ensure proper placement of this line
+        // No need to set player.stage.set('submit', true) here
       }
+
+      // Move to the next stage
+      if (currStageName === 'Individual Ranking') {
+        // Move to Team Ranking
+        game.set('nextStage', 'Team Ranking')
+      } else if (currStageName === 'Team Ranking') {
+        // Move to Multi-Team Ranking
+        game.set('nextStage', 'Multi-Team Ranking')
+      } else if (currStageName === 'Multi-Team Ranking') {
+        // End the task or game
+        game.set('taskComplete', true)
+      }
+
       player.stage.set('submit', true)
     }
   }
+
   return (
     <div className={`${styles.rankingStage}`}>
       <div className="h-full w-128">
         {playerCount > 1 && currStageName.includes('Team') && (
-          <Chat scope={game} attribute="chat" />
+          <Chat
+            scope={game}
+            attribute="chat"
+            includeAI={currStageName === 'Multi-Team Ranking'}
+            currentStage={currStageName}
+          />
         )}
       </div>
       <div className='h-full'>
@@ -64,7 +85,7 @@ export function RankingStage () {
           }
           {finishedStep > 2 &&
             <SliderInput
-              id = 'confidenceSlider'
+              id='confidenceSlider'
               handleChange={(e) => setConfidenceValue(e.target.value)}
               label='How confident are you in your ranking?'
               value={convidenceValue}
@@ -81,7 +102,7 @@ export function RankingStage () {
         </div>
       </div>
       <div className="h-full w-128">
-        <Notes handleReturnToFullSize={() => console.log('null')}/>
+        <Notes handleReturnToFullSize={() => console.log('null')} />
       </div>
     </div>
   )
