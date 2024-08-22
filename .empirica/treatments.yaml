@@ -1,24 +1,24 @@
-factors:
+factors: # playerCount factor defines how many players are in a game
   - desc: playerCount determines the number of Players are in a Game.
-    name: playerCount
+    name: playerCount # name of the factor is playerCount
     values:
-      - value: 4
+      - value: 4 # possible values for playerCount
       - value: 5
       - value: 6
       - value: 7
       - value: 8
   - desc: interventionPlacement determines after which stage we will introduce AI intervention.
-    name: interventionPlacement
+    name: interventionPlacement # determines when AI intervention is introduced
     values:
-      - value: "individual"
-      - value: "team"
-      - value: "mts"
+      - value: "individual" # AI after individual stage
+      - value: "team" # AI after team stage
+      - value: "mts" # AI after MTS
   - desc: aiVariation determines the type of AI intervention.
-    name: aiVariation
+    name: aiVariation # aiVariation defines the type of AI intervention
     values:
-      - value: "chat"
-      - value: "wizard"
-      - value: "popup"
+      - value: "chat" # ai introduced in chat
+      - value: "wizard" # wizard as a person who acts as an AI
+      - value: "popup" # ignore for now
 treatments:
   - desc: "2 player game, popup AI after the team stage"
     factors:
@@ -26,6 +26,12 @@ treatments:
       interventionPlacement: "team"
       aiVariation: "popup"
     name: 2 players, popup AI post-team
+  - desc: "2 player game, popup AI after the mts stage"
+    factors:
+      playerCount: 2
+      interventionPlacement: "mts"
+      aiVariation: "popup"
+    name: 2 players, popup AI post-MTS
   - desc: "4-player game, popup AI after the team stage"
     factors:
       playerCount: 4

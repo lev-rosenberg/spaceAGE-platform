@@ -21,7 +21,7 @@
     "Planetary Geology Team": {
       "instructions": [
         "As you review this information, think about what it takes to support human life. What are the positive and negative features of each candidate landing site for human habitation. You will make an initial decision based on your information, and then you will meet with the other members of your elite team to make a final decision.",
-        "These are the four factors you need to cons2ider when deciding which location will best support human habitation on Mars:"
+        "These are the four factors you need to consider when deciding which location will best support human habitation on Mars:"
       ],
       "factors": ["Human Habitation", "Atmosphere", "Terrain", "Water"],
       "goal-descriptions": [

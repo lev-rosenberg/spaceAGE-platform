@@ -13,7 +13,8 @@ export function RankingStage () {
   const stage = useStage()
   const player = usePlayer()
   const round = useRound()
-  const { playerCount } = game.get('treatment')
+  const { playerCount, interventionPlacement } = game.get('treatment')
+  // determine the current stage name, considering 'intervention' and 'placement'
   const currStageName = stage.get('name') !== 'intervention' ? stage.get('name') : stage.get('placement')
   const [reasoning, setReasoning] = useState('')
   const [convidenceValue, setConfidenceValue] = useState(4)
@@ -35,7 +36,6 @@ export function RankingStage () {
         round.set('mts-reasoning', reasoning)
         round.set('mts-confidence', convidenceValue)
         game.set('multiTeamRankingComplete', true) // Ensure proper placement of this line
-        // No need to set player.stage.set('submit', true) here
       }
 
       // Move to the next stage
@@ -53,16 +53,21 @@ export function RankingStage () {
       player.stage.set('submit', true)
     }
   }
+  // Determine if AI should be included based on the current stage and intervention placement
+  const includeAI = (currStageName === 'Individual Ranking' && interventionPlacement === 'individual') ||
+                     (currStageName === 'Team Ranking' && interventionPlacement === 'team') ||
+                     (currStageName === 'Multi-Team Ranking' && interventionPlacement === 'mts')
+
 
   return (
     <div className={`${styles.rankingStage}`}>
       <div className="h-full w-128">
         {playerCount > 1 && currStageName.includes('Team') && (
           <Chat
-            scope={game}
-            attribute="chat"
-            includeAI={currStageName === 'Multi-Team Ranking'}
+            scope = {stage}
+            attribute="chat" // option: have attribute represent team id 
             currentStage={currStageName}
+            includeAI={includeAI} // conditionally enable AI
           />
         )}
       </div>
@@ -107,3 +112,6 @@ export function RankingStage () {
     </div>
   )
 }
+// TO DO: 
+// Retrieve interventionPlacement value from server callbacks.js
+// conditionally enable AI based on current stage and intervention placement

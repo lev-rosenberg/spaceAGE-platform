@@ -75,10 +75,12 @@ export async function ChatBot ({
     return response.choices[0].message.content
   }
 
-  const classificationResponse = await getResponse({ responseType: classification, df: conversationDF })
-  console.log('classicication response', classificationResponse)
-  if (!classificationResponse.includes('human')) {
-    const completionResponse = getResponse({ responseType: completion, df: conversationDF })
-    return completionResponse
+    const classificationResponse = await getResponse({ responseType: classification, df: conversationDF });
+    console.log('classicication response', classificationResponse);
+    if (!classificationResponse.includes('human')) {
+      const completionResponse = getResponse({ responseType: completion, df: conversationDF });
+      return completionResponse;
   }
+  return null;
 }
+
