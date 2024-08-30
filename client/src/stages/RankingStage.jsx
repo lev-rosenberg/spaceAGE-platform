@@ -58,6 +58,17 @@ export function RankingStage () {
                      (currStageName === 'Team Ranking' && interventionPlacement === 'team') ||
                      (currStageName === 'Multi-Team Ranking' && interventionPlacement === 'mts')
 
+  const teamID = player.get('team'); // get teamID from callbacks.js
+  const chatAttribute = currStageName === 'Team Ranking'
+    ? `chat-${teamID}` // Specific to team chat
+    : 'chat'; // General chat for other stages
+
+  //game.set('chatAttribute', chatAttribute);
+
+  console.log('Current Stage:', currStageName);
+  console.log('Team ID:', teamID);
+  console.log('Chat Attribute:', chatAttribute);
+    
 
   return (
     <div className={`${styles.rankingStage}`}>
@@ -65,9 +76,11 @@ export function RankingStage () {
         {playerCount > 1 && currStageName.includes('Team') && (
           <Chat
             scope = {stage}
-            attribute="chat" // option: have attribute represent team id 
+            attribute={chatAttribute} // filtered by team ID
+            // teamID = planetary-geology-team, chat component scoped to chat-planetary-geology-team
+            // teamID = space-human-factors, chat component scoped to chat-space-human-factors
             currentStage={currStageName}
-            includeAI={includeAI} // conditionally enable AI
+            includeAI={includeAI} // conditionally enable AI based on logic above for interventionPlacement
           />
         )}
       </div>
@@ -112,6 +125,3 @@ export function RankingStage () {
     </div>
   )
 }
-// TO DO: 
-// Retrieve interventionPlacement value from server callbacks.js
-// conditionally enable AI based on current stage and intervention placement

@@ -25,12 +25,12 @@ Empirica.onGameStart(({ game }) => {
   const round = game.addRound({ name: 'Round' })
   // round.addStage({ name: 'Instructions', duration: 120 })
   round.addStage({ name: 'Role Exploration', duration: 6 })
-  round.addStage({ name: 'Individual Ranking', duration: 6 })
-  if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 6 })
-  round.addStage({ name: 'Team Ranking', duration: 6 })
-  if (interventionPlacement === 'team') round.addStage({ name: 'intervention', placement: 'Team Ranking', duration: 6 })
-  round.addStage({ name: 'Multi-Team Ranking', duration: 6 })
-  if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'Multi-Team Ranking', duration: 6 })
+  round.addStage({ name: 'Individual Ranking', duration: 20 })
+  if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 20 })
+  round.addStage({ name: 'Team Ranking', duration: 20 })
+  if (interventionPlacement === 'team') round.addStage({ name: 'intervention', placement: 'Team Ranking', duration: 20 })
+  round.addStage({ name: 'Multi-Team Ranking', duration: 20 })
+  if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'Multi-Team Ranking', duration: 20 })
 
   // 2: Assign roles and teams.
   const possibleRoles = ['Water Specialist', 'Geology Scientist', 'Atmospheric Specialist', 'Climate Scientist', 'Terrain Specialist', 'Life Scientist']
@@ -103,20 +103,21 @@ Empirica.onRoundStart(({ round }) => {
 })
 
 Empirica.onStageStart(({ stage }) => {
+  console.log(`Stage started: ${stage.get("name")}`);
   if (stage.get("name") === "intervention") {
-    stage.append("chat", {
-      text: "Hi team! I'm Sage, your AI team member. After analyzing the data and team dynamics, I recommend choosing Eredania as the landing location for the mission. What are your thoughts?",
-      sender: {
-        id: 'system_message_id',
-        name: 'Sage'
-        
-      }
-    })
+    console.log('Intervention stage detected');
+      stage.append("chat", { // note: maybe do hardcode chat-teamid
+        text: "Hi team! I'm Sage, your AI team member. After analyzing the data and team dynamics, I recommend choosing Eredania as the landing location for the mission. What are your thoughts?",
+        sender: {
+          id: 'system_message_id',
+          name: 'Sage'
+        }
+      });
+    } else {
+      console.error('No players found in the intervention stage');
+    }
   }
- 
- 
-})
-
+)
 
 Empirica.onStageEnded(({ stage }) => {})
 

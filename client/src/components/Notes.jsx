@@ -70,7 +70,7 @@ export function Notes ({ handleReturnToFullSize }) {
         1. If we are not in the Role Exploration stage, return (THIS MIGHT CHANGE IN THE FUTURE)
         2. Dispatch the action
     */
-    if (stage.get('name') !== 'Role Exploration') { return }
+    //if (stage.get('name') !== 'Role Exploration') { return }
     dispatch({ type, payload })
   }
 
@@ -87,7 +87,7 @@ export function Notes ({ handleReturnToFullSize }) {
           </Button>
         ))}
       </div>
-      <h3 className='mb-2'>Rank {clicked} on the following factors:</h3>
+      <h3 className='mb-2'>Rate {clicked} on the following factors:</h3>
       <form
         disabled={true}
         >
@@ -106,7 +106,6 @@ export function Notes ({ handleReturnToFullSize }) {
         <TextInput
           className='w-full h-32'
           value={localTextNotes[clicked]}
-          disabled={stage.get('name') !== 'Role Exploration'}
           area
           handleChange={(e) => handleLocalChange('SET_LOCATION_TEXT_NOTES', { ...localTextNotes, [clicked]: e.target.value })}
         />

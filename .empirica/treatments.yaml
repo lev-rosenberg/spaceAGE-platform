@@ -35,9 +35,9 @@ treatments:
   - desc: "4-player game, popup AI after the team stage"
     factors:
       playerCount: 4
-      interventionPlacement: "individual"
+      interventionPlacement: "team"
       aiVariation: "popup"
-    name: 4 players, popup AI post-individual
+    name: 4 players, popup AI post-team
   - desc: "4-player game, chat AI after the team stage"
     factors:
       playerCount: 4

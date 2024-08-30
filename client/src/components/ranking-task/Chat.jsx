@@ -11,45 +11,11 @@ export function Chat({
   attribute = 'messages',
   loading: LoadingComp = Loading, 
   includeAI = false, // includeAI property to enable/disable AI
-  currentStage, // Current stage prop
+  currentStage // Current stage prop
 }) {
   const player = usePlayer();
   const [sageMessage, setSageMessage] = useState('');
   const [isThinking, setIsThinking] = useState(false);
-
-  // State to ensure Sage message is set only once
-  // const [messageDisplayed, setMessageDisplayed] = useState(false);
-
-  
-  // useEffect(() => {
-  //   if (!messageDisplayed) {
-  //     fetch('/sage-blurb.json')
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         const existingMessages = scope.get(attribute) || [];
-  //         const sageMessageExists = existingMessages.some(
-  //           (msg) => msg.text === data.welcomeMessage && msg.sender.name === 'Sage'
-  //         );
-
-  //         if (!sageMessageExists) {
-  //           setSageMessage(data.welcomeMessage);
-  //           scope.append(attribute, { // use .some to filter out scope for multiple players?
-  //             text: data.welcomeMessage,
-  //             sender: {
-  //               id: 'system_message_id',
-  //               name: 'Sage'
-  //             }
-  //           });
-  //           setMessageDisplayed(true);
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error fetching sage message:', error);
-  //       });
-  //   }
-
-
-  // }, [includeAI, currentStage, messageDisplayed]);
 
   if (!scope || !player) {
     return <LoadingComp />;
@@ -61,8 +27,7 @@ export function Chat({
       sender: {
         id: player.id,
         name: player.get('name') || player.id,
-        avatar: player.get('avatar')
-        // add one more field teamID player.get()
+        avatar: player.get('avatar'),
       }
     });
   };
@@ -117,7 +82,7 @@ export function Chat({
 
 
 function Messages (props) {
-  const { msgs } = props
+  const { msgs } = props 
   const scroller = useRef(null)
   const [msgCount, setMsgCount] = useState(0)
 
