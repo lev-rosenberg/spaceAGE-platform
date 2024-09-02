@@ -52,12 +52,12 @@ export function Notes ({ handleReturnToFullSize }) {
         3. In either case (Role Exploration or not), set the clicked location to the location clicked
     */
     if (location.name === clicked) { return }
-    if (stage.get('name') === 'Role Exploration') {
-      handleReturnToFullSize(location.name)
+    // if (stage.get('name') === 'Role Exploration') {
+    handleReturnToFullSize(location.name)
       // dispatch({ type: 'SET_CLICKED', payload: location.name })
-    } else {
-      dispatch({ type: 'SET_CLICKED', payload: location.name })
-    }
+    // } else {
+    //   dispatch({ type: 'SET_CLICKED', payload: location.name })
+    // }
   }
 
   function handleLocalChange (type, payload) {
@@ -89,7 +89,7 @@ export function Notes ({ handleReturnToFullSize }) {
       </div>
       <h3 className='mb-2'>Rate {clicked} on the following factors:</h3>
       <form
-        disabled={true}
+        disabled={false}
         >
         <div className='flex flex-col gap-2 mb-3'>
           {Object.keys(localSliderNotes).length !== 0 &&

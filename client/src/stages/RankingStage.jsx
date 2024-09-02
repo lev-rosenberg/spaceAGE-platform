@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useContext, useState} from 'react'
 import { useStage, useGame, usePlayer, useRound } from '@empirica/core/player/classic/react'
 import { Chat } from '../components/ranking-task/Chat'
 import { RankingTask } from '../components/ranking-task/RankingTask'
@@ -7,6 +7,8 @@ import styles from '../styles/ranking.module.css'
 import { TextInput } from '../components/TextInput'
 import { SliderInput } from '../components/SliderInput'
 import { Button } from '../components/Button'
+import {Context} from "../context";
+import {isEqual} from "lodash";
 
 export function RankingStage () {
   const game = useGame()
@@ -19,6 +21,10 @@ export function RankingStage () {
   const [reasoning, setReasoning] = useState('')
   const [convidenceValue, setConfidenceValue] = useState(4)
   const [finishedStep, setFinishedStep] = useState(1)
+
+  // fixing the notes by replicating the previous stage
+  const { state, dispatch } = useContext(Context)
+  const { scale, hovering, clicked, localTextNotes, localSliderNotes } = state
 
   function handleContinue () {
     if (finishedStep === 1) {
@@ -65,9 +71,28 @@ export function RankingStage () {
 
   //game.set('chatAttribute', chatAttribute);
 
-  console.log('Current Stage:', currStageName);
-  console.log('Team ID:', teamID);
-  console.log('Chat Attribute:', chatAttribute);
+  // console.log('Current Stage:', currStageName);
+  // console.log('Team ID:', teamID);
+  // console.log('Chat Attribute:', chatAttribute);
+
+
+  // notes something
+  function handleReturnToFullSize (newLocation) {
+    setTimeout(() => {
+      // if the notes haven't changed, don't update
+      if (isEqual(localTextNotes, player.get('locationTextNotes')) && isEqual(localSliderNotes, player.get('locationSliderNotes'))) {
+        dispatch({ type: 'SET_CLICKED', payload: newLocation })
+        console.log(localSliderNotes)
+      } else {
+        // otherwise, update the notes and add the location to the visited list
+        // set 0.5 sec timer to allow the map to zoom out before updating the notes
+        player.set('locationTextNotes', localTextNotes)
+        player.set('locationSliderNotes', localSliderNotes)
+
+        dispatch({ type: 'SET_CLICKED', payload: newLocation })
+      }
+    }, 350)
+  }
     
 
   return (
@@ -120,7 +145,9 @@ export function RankingStage () {
         </div>
       </div>
       <div className="h-full w-128">
-        <Notes handleReturnToFullSize={() => console.log('null')} />
+        {/*old notes with no write function*/}
+        {/*<Notes handleReturnToFullSize={() => console.log('null')} />*/}
+        <Notes handleReturnToFullSize={handleReturnToFullSize}/>
       </div>
     </div>
   )

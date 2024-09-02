@@ -24,7 +24,7 @@ Empirica.onGameStart(({ game }) => {
   // 1: Create the round and stages
   const round = game.addRound({ name: 'Round' })
   // round.addStage({ name: 'Instructions', duration: 120 })
-  round.addStage({ name: 'Role Exploration', duration: 6 })
+  round.addStage({ name: 'Role Exploration', duration: 20 })
   round.addStage({ name: 'Individual Ranking', duration: 20 })
   if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 20 })
   round.addStage({ name: 'Team Ranking', duration: 20 })
@@ -105,7 +105,6 @@ Empirica.onRoundStart(({ round }) => {
 Empirica.onStageStart(({ stage }) => {
   console.log(`Stage started: ${stage.get("name")}`);
   if (stage.get("name") === "intervention") {
-    console.log('Intervention stage detected');
       stage.append("chat", { // note: maybe do hardcode chat-teamid
         text: "Hi team! I'm Sage, your AI team member. After analyzing the data and team dynamics, I recommend choosing Eredania as the landing location for the mission. What are your thoughts?",
         sender: {
@@ -114,12 +113,13 @@ Empirica.onStageStart(({ stage }) => {
         }
       });
     } else {
-      console.error('No players found in the intervention stage');
     }
   }
 )
 
-Empirica.onStageEnded(({ stage }) => {})
+Empirica.onStageEnded(({ stage }) => {
+//   TODO: force dump sliders and notes a.k.a. handleReturnToFullSize
+})
 
 Empirica.onRoundEnded(({ round }) => {})
 
