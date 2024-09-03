@@ -117,8 +117,13 @@ Empirica.onStageStart(({ stage }) => {
   }
 )
 
-Empirica.onStageEnded(({ stage }) => {
+Empirica.onStageEnded(({ stage, game }) => {
+  // const players = game.players
 //   TODO: force dump sliders and notes a.k.a. handleReturnToFullSize
+//   for (const player of players) {
+    // player.set('locationTextNotes', localTextNotes)
+    // player.set('locationSliderNotes', localSliderNotes)
+  // }
 })
 
 Empirica.onRoundEnded(({ round }) => {})

@@ -18,10 +18,11 @@ const initialState = {
     { name: 'Argyre', x: 1330, y: 1190 },
     { name: 'Eridania', x: 3150, y: 1140 }],
   localTextNotes: {
-    Argyre: '',
-    Casius: '',
-    Diacria: '',
-    Eridania: ''
+    // ok if we make them empty by default, then Notes should use player.get
+    // Argyre: '',
+    // Casius: '',
+    // Diacria: '',
+    // Eridania: ''
   },
   localSliderNotes: {}
 }

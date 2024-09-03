@@ -82,7 +82,7 @@ export function RankingStage () {
       // if the notes haven't changed, don't update
       if (isEqual(localTextNotes, player.get('locationTextNotes')) && isEqual(localSliderNotes, player.get('locationSliderNotes'))) {
         dispatch({ type: 'SET_CLICKED', payload: newLocation })
-        console.log(localSliderNotes)
+        // console.log(localTextNotes)
       } else {
         // otherwise, update the notes and add the location to the visited list
         // set 0.5 sec timer to allow the map to zoom out before updating the notes
@@ -145,7 +145,6 @@ export function RankingStage () {
         </div>
       </div>
       <div className="h-full w-128">
-        {/*old notes with no write function*/}
         {/*<Notes handleReturnToFullSize={() => console.log('null')} />*/}
         <Notes handleReturnToFullSize={handleReturnToFullSize}/>
       </div>
