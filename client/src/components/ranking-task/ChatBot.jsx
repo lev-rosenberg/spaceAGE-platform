@@ -6,7 +6,7 @@ export async function ChatBot ({
   // console.log("conversation", conversationDF);
   const classification = {
     model: 'gpt-4o',
-    systemPrompt: "You are a classifier that determines whether certain text must be replied by an AI team member called Sage or a human. When you get some text, you reply: 'Next reply is: {classification}'; where classification is either human or assistant. Always return assistant if Sage was mentioned. Return human if participants talk with each other. Ai Assistant Sage is expert in space exploration and landing locations"
+    systemPrompt: "You are a classifier that determines whether certain text must be replied by an AI team member called Sage or a human. When you get some text, you reply: 'Next reply is: {classification}'; where classification is either human or assistant. Always return assistant if Sage was mentioned. Return assistant if participants are asking questions or are confused. Return human if participants talk with each other. Ai Assistant Sage is expert in space exploration and landing locations"
   }
   const completion = {
     model: 'gpt-4o',

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react'
 import { Button } from '../components/Button'
 import styles from '../styles/map.module.css'
 import { Context } from '../context'
-import { usePlayer } from '@empirica/core/player/classic/react'
+import { usePlayer } from '@empirica/core/player/classic/react' // updated to include timer
 import { Notes } from '../components/Notes'
 import { isEqual } from 'lodash'
 import { Map } from '../components/role-exploration/Map'
@@ -23,6 +23,7 @@ export function RoleExploration () {
   const player = usePlayer()
   const visited = player.get('visited')
   const [locationJsonData, setLocationJsonData] = useState({})
+
 
   useEffect(() => {
     /*
@@ -138,10 +139,7 @@ export function RoleExploration () {
   }
 
   return (
-    <div
-      id='map'
-      className={`${styles.map}`}
-      style={{ width: clicked || visited.length === 4 ? scaledDims.width : 'fit-content', height: clicked || visited.length === 4 ? scaledDims.height : 'fit-content' }}>
+    <div id='map' className={`${styles.map}`}>
       <div className={`${styles.inset}`}>
         <div className={'flex flex-col gap-2'} style={{ width: clicked ? '35%' : 'fit-content' }}>
           <div className={'flex gap-2'}>
@@ -167,7 +165,6 @@ export function RoleExploration () {
             )}
             <Notes handleReturnToFullSize={handleReturnToFullSize}/>
           </div>
-
         )}
         {!clicked && visited.length === 4 && (
           <Button
@@ -179,5 +176,5 @@ export function RoleExploration () {
       </div>
       <Map scaledDims={scaledDims} layerRef={layerRef} handleZoomToLocation={handleZoomToLocation}/>
     </div>
-  )
+  );
 }

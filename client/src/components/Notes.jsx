@@ -118,7 +118,7 @@ export function Notes ({ handleReturnToFullSize }) {
           value={localTextNotes[clicked]}
           label='localSliderNotesLabel'
           placeholder={'Notes about '+clicked}
-          // area
+          area
           handleChange={(e) => {
             handleLocalChange('SET_LOCATION_TEXT_NOTES', { ...localTextNotes, [clicked]: e.target.value });
             console.log('Input value changed:', player.get('locationTextNotes'));

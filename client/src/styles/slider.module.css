@@ -20,6 +20,7 @@ input[type=range]::-webkit-slider-thumb {
   background-color: var(--accent-blue);
   cursor: grab;
   -webkit-appearance: none;
+  
 }
 input[type=range]::-webkit-slider-thumb:active {
   cursor: grabbing;
@@ -33,4 +34,8 @@ output {
   justify-content: space-between;
   margin-bottom: 12px;
   font-weight: 300;
+}
+.text-xxs {
+  font-size: 0.750rem; /* 10px */
+  line-height: 1; /* Adjust line-height if necessary */
 }
