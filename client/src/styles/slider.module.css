@@ -2,6 +2,8 @@ input[type=range] {
   appearance: none;
   width: 100%;
   height: 0.2rem;
+  position: relative;
+  margin-left: -0.1px;
 
 }
 input[type=range]:focus {
@@ -10,6 +12,7 @@ input[type=range]:focus {
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   cursor: pointer;
+  z-index: 1;
 }
 input[type=range]::-webkit-slider-runnable-track:active {
   cursor: grabbing;
@@ -17,9 +20,11 @@ input[type=range]::-webkit-slider-runnable-track:active {
 input[type=range]::-webkit-slider-thumb {
   height: 1.5rem;
   width: 0.3rem;
-  background-color: var(--accent-blue);
+  background-color: #fff;
   cursor: grab;
   -webkit-appearance: none;
+  position: relative;
+  z-index: 2;
   
 }
 input[type=range]::-webkit-slider-thumb:active {
@@ -28,6 +33,7 @@ input[type=range]::-webkit-slider-thumb:active {
 
 output {
   margin: -0.5rem 0 0 0.5rem;
+  font-size: 0.8rem;
 }
 .label {
   display: flex;
@@ -38,4 +44,13 @@ output {
 .text-xxs {
   font-size: 0.750rem; /* 10px */
   line-height: 1; /* Adjust line-height if necessary */
+}
+
+.tick {
+  width: 1.8px; /* Width of the tick mark */
+  height: 10px; /* Height of the tick mark */
+  background-color: #fff;
+  position: absolute;
+  top: 21px; /* Position above the slider */
+  z-index: 1;
 }
