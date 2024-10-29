@@ -24,13 +24,13 @@ Empirica.onGameStart(({ game }) => {
   // 1: Create the round and stages
   const round = game.addRound({ name: 'Round' })
   // round.addStage({ name: 'Instructions', duration: 120 })
-  round.addStage({ name: 'Role Exploration', duration: 20 })
-  round.addStage({ name: 'Individual Ranking', duration: 20 })
-  if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 20 })
-  round.addStage({ name: 'Team Ranking', duration: 20 })
-  if (interventionPlacement === 'team') round.addStage({ name: 'intervention', placement: 'Team Ranking', duration: 20 })
-  round.addStage({ name: 'Multi-Team Ranking', duration: 20 })
-  if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'Multi-Team Ranking', duration: 20 })
+  round.addStage({ name: 'Role Exploration', duration: 600 })
+  round.addStage({ name: 'Individual Ranking', duration: 600 })
+  if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 600 })
+  round.addStage({ name: 'Team Ranking', duration: 600 })
+  if (interventionPlacement === 'team') round.addStage({ name: 'intervention', placement: 'Team Ranking', duration: 600 })
+  round.addStage({ name: 'Multi-Team Ranking', duration: 600 })
+  if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'Multi-Team Ranking', duration: 600 })
 
   // 2: Assign roles and teams.
   const possibleRoles = ['Water Specialist', 'Geology Scientist', 'Atmospheric Specialist', 'Climate Scientist', 'Terrain Specialist', 'Life Scientist']
@@ -86,7 +86,7 @@ Empirica.onGameStart(({ game }) => {
     player.set('locationSliderNotes', locationSliderNotes)
   }
 })
-
+// Shared rankings stored here
 Empirica.onRoundStart(({ round }) => {
   // 3b, 3c: Set team, mts rankings
   round.set('space-human-factors-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
@@ -100,6 +100,10 @@ Empirica.onRoundStart(({ round }) => {
   round.set('mts-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
   round.set('mts-reasoning', '')
   round.set('mts-confidence', 0)
+  // Set rankings for AI intervention stage
+  round.set('ai-ranking', ['Argyre', 'Casius', 'Diacria', 'Eridania'])
+  round.set('ai-reasoning', '')
+  round.set('ai-confidence', 0)
 })
 
 Empirica.onStageStart(({ stage }) => {
