@@ -15,9 +15,14 @@ export function RankingStage () {
   const stage = useStage()
   const player = usePlayer()
   const round = useRound()
+  
+  console.log("Stage Name:", stage.get('name'));
+  console.log("Stage Placement:", stage.get('placement'));
+
   const { playerCount, interventionPlacement } = game.get('treatment')
   // determine the current stage name, considering 'intervention' and 'placement'
-  const currStageName = stage.get('name') !== 'intervention' ? stage.get('name') : stage.get('placement')
+  // const currStageName = stage.get('name') !== 'intervention' ? stage.get('name') : stage.get('placement')
+  const currStageName = stage.get('name') === 'intervention' ? stage.get('placement') : stage.get('name');
   const [reasoning, setReasoning] = useState('')
   const [convidenceValue, setConfidenceValue] = useState(4)
   const [finishedStep, setFinishedStep] = useState(1)
@@ -60,9 +65,11 @@ export function RankingStage () {
     }
   }
   // Determine if AI should be included based on the current stage and intervention placement
-  const includeAI = (currStageName === 'Individual Ranking' && interventionPlacement === 'individual') ||
-                     (currStageName === 'Team Ranking' && interventionPlacement === 'team') ||
-                     (currStageName === 'Multi-Team Ranking' && interventionPlacement === 'mts')
+  // const includeAI = (currStageName === 'Individual Ranking' && interventionPlacement === 'individual') ||
+  //                    (currStageName === 'Team Ranking' && interventionPlacement === 'team') ||
+  //                    (currStageName === 'Multi-Team Ranking' && interventionPlacement === 'mts')
+
+  const includeAI = (stage.get('name') === 'intervention' && interventionPlacement === 'mts');
 
   const teamID = player.get('team'); // get teamID from callbacks.js
   const chatAttribute = currStageName === 'Team Ranking'
@@ -71,9 +78,9 @@ export function RankingStage () {
 
   //game.set('chatAttribute', chatAttribute);
 
-  // console.log('Current Stage:', currStageName);
-  // console.log('Team ID:', teamID);
-  // console.log('Chat Attribute:', chatAttribute);
+  console.log('Current Stage:', currStageName);
+  console.log('Team ID:', teamID);
+  console.log('Chat Attribute:', chatAttribute);
 
 
   // notes something
@@ -134,13 +141,13 @@ export function RankingStage () {
               value={convidenceValue}
               min={0}
               max={7}
-              dark
+              light
             />
           }
           <Button
             handleClick={handleContinue}
           >
-            {finishedStep < 3 ? 'Continue' : 'Submit'}
+            {finishedStep < 3 ? 'Approve' : 'Submit'}
           </Button>
         </div>
       </div>

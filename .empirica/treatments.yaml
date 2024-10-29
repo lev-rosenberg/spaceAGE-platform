@@ -32,12 +32,12 @@ treatments:
       interventionPlacement: "mts"
       aiVariation: "popup"
     name: 2 players, popup AI post-MTS
-  - desc: "4-player game, popup AI after the team stage"
+  - desc: "4-player game, popup AI after the mts stage"
     factors:
       playerCount: 4
-      interventionPlacement: "team"
+      interventionPlacement: "mts"
       aiVariation: "popup"
-    name: 4 players, popup AI post-team
+    name: 4 players, popup AI post-MTS
   - desc: "4-player game, chat AI after the team stage"
     factors:
       playerCount: 4

@@ -15,7 +15,7 @@ export function Chat({
 }) {
   const player = usePlayer();
   const [sageMessage, setSageMessage] = useState('');
-  const [isThinking, setIsThinking] = useState(false);
+  // const [isThinking, setIsThinking] = useState(false);
 
   if (!scope || !player) {
     return <LoadingComp />;
@@ -36,14 +36,14 @@ export function Chat({
     if (!includeAI) { // Conditional AI interaction 
       return; // Skip AI interaction if includeAI is false
     }
-    setIsThinking(true)
+    // setIsThinking(true)
     try {
       const messages = scope.getAttribute(attribute)?.items || []
       const replyText = await ChatBot({
         conversationDF: messages // Pass the conversation data to OpenAI chat completion function
       })
       if (!replyText) {
-        setIsThinking(false)
+        // setIsThinking(false)
         return
       }
 
@@ -61,7 +61,7 @@ export function Chat({
       console.error(`An error occurred: ${error}`)
       // You might want to handle errors differently, depending on your application
     }
-    setIsThinking(false)
+    //setIsThinking(false)
   }
 
   const msgs = scope.getAttribute(attribute)?.items || []
@@ -72,7 +72,7 @@ export function Chat({
       <Input
         onNewMessage={handleNewMessage}
         onSystemMessage={handleSystemMessage}
-        isThinking={isThinking}
+        //isThinking={isThinking}
       />
     </div>
   )
@@ -173,7 +173,7 @@ function MessageComp ({ attribute }) {
   )
 }
 
-function Input ({ onNewMessage, onSystemMessage, isThinking }) {
+function Input ({ onNewMessage, onSystemMessage }) { // took out isThinking
   const [text, setText] = useState('')
 
   const resize = (e) => {
@@ -216,7 +216,7 @@ function Input ({ onNewMessage, onSystemMessage, isThinking }) {
 
   return (
     <div className="flex flex-col">
-      {isThinking
+      {/* {isThinking
         ? (
         <>
           <p className="text-sm text-gray-500 pl-3">Sage Thinking...</p>
@@ -225,7 +225,7 @@ function Input ({ onNewMessage, onSystemMessage, isThinking }) {
           </Box>
         </>
           )
-        : null}
+        : null} */}
       <form
         className="p-2 flex items-strech gap-2 border-t"
         onSubmit={handleSubmit}

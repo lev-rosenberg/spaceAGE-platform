@@ -14,14 +14,16 @@ export function Button ({
   type = 'button',
   autoFocus = false,
   id = null,
-  active = false
+  active = false,
+  disabled = false
 }) {
   return (
     <button
       type={type}
       onClick={handleClick}
-      className={`${primary ? 'prim' : 'sec'} ${className}`}
+      className={`${primary ? 'prim' : 'sec'} ${className} ${disabled ? 'btn-disabled' : ''}`}
       autoFocus={autoFocus}
+      disabled={disabled}
 
     >
       {children}
