@@ -14,9 +14,12 @@ export function Timer() {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className={`tabular-nums text-3xl font-semibold ${isTimeRunningOut ? styles['text-red'] : 'text-gray-500'}`}>
-        {humanTimer(remaining)}
-      </h1>
+      <h1
+  className={`tabular-nums text-3xl font-semibold`}
+  style={{ color: isTimeRunningOut ? 'var(--accent-blue)' : 'rgba(107, 114, 128, 1)' }} // Change to accent color or gray
+>
+  {humanTimer(remaining)}
+</h1>
       {remaining && isTimeRunningOut && (
         <p className="text-white-400 mt-4">
           Time running out!

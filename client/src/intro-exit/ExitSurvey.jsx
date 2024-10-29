@@ -14,6 +14,7 @@ export function ExitSurvey({ next }) {
   const [feedback, setFeedback] = useState("");
   const [education, setEducation] = useState("");
   const [invitedMembers, setInvitedMembers] = useState([]);
+  const [sageFeedback, setSageFeedback] = useState("");
 
   // Handle ratings for each teammate
   const handleUsefulnessChange = (playerId) => (value) => {
@@ -41,6 +42,7 @@ export function ExitSurvey({ next }) {
       education,
       usefulnessRatings,
       invitedMembers,
+      sageFeedback,
     });
 
     next();
@@ -75,7 +77,7 @@ export function ExitSurvey({ next }) {
                     usefulness={usefulnessRatings[p.id] || "0"} // Ensure it starts at 0
                     handleUsefulnessChange={handleUsefulnessChange(p.id)}
                   />
-                  <Avatar player={p} size="25px" style={{ marginLeft: '12px'}} /> {/* Render the player's avatar with specified size */}
+                  <Avatar player={p} size="25px" style={{ marginLeft: '100px'}} /> {/* Render the player's avatar with specified size */}
                 </div>
               </div>
             ))
@@ -91,7 +93,26 @@ export function ExitSurvey({ next }) {
                 handleUsefulnessChange={handleUsefulnessChange("sage")}
               />
               <div className="mt-4">
-                <h4 className="text-xs leading-6 font-medium font-bold text-white"> If you had to do one more round of this activity, who would you invite again?</h4>
+            <label className="block text-sm font-medium text-white">
+              Please explain why you rated Sage the way you did:
+            </label>
+            <textarea
+              style={{
+                backgroundColor: 'var(--primary-white)',
+                color: 'var(--dark-grey)',
+                border: '1px solid var(--light-grey)',
+                padding: '0.5rem 1rem',
+                borderRadius: '0.375rem',
+                width: '75%',
+                boxSizing: 'border-box',
+                height: '150px', // Adjust height as needed
+              }}
+              value={sageFeedback}
+              onChange={(e) => setSageFeedback(e.target.value)}
+            />
+          </div>
+              <div className="mt-4">
+                <h4 className="text-sm leading-6 font-medium font-bold text-white"> If you had to do one more round of this activity, who would you invite again?</h4>
                 <h4 className="text-xs leading-6 font-medium font-bold text-white"> Select all team members:</h4>
                 {teammates.map((p) => (
                   <div key={p.id} className="flex items-center">
@@ -104,7 +125,7 @@ export function ExitSurvey({ next }) {
                     <label htmlFor={`invite-${p.id}`} className="ml-2 text-white">
                       {p.get("name") || `Player ${p.id}`}
                     </label>
-                    <Avatar player={p} size="25px" style={{ marginRight: '100px'}} />
+                    <Avatar player={p} size="25px" style={{ marginLeft: '100px'}} />
                     </div>
                 ))}
                 <div className="flex items-center mt-2">
@@ -122,7 +143,15 @@ export function ExitSurvey({ next }) {
             <label className="block text-sm font-medium text-white">Age</label>
             <input
               type="number"
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md"
+              style={{
+                backgroundColor: 'var(--primary-white)', // Background color
+                color: 'var(--dark-grey)', // Text color
+                border: '1px solid var(--light-grey)', // Border color
+                padding: '0.5rem 1rem', // Padding
+                borderRadius: '0.375rem', // Rounded corners
+                width: '20%', // Full width
+                boxSizing: 'border-box', // Ensure padding doesn't affect total width
+              }}
               value={age}
               onChange={(e) => setAge(e.target.value)}
             />
@@ -130,14 +159,30 @@ export function ExitSurvey({ next }) {
             <label className="block text-sm font-medium text-white">Gender</label>
             <input
               type="text"
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md"
+              style={{
+                backgroundColor: 'var(--primary-white)',
+                color: 'var(--dark-grey)',
+                border: '1px solid var(--light-grey)',
+                padding: '0.5rem 1rem',
+                borderRadius: '0.375rem',
+                width: '20%',
+                boxSizing: 'border-box',
+              }}
               value={gender}
               onChange={(e) => setGender(e.target.value)}
             />
 
             <label className="block text-sm font-medium text-white">Feedback</label>
             <textarea
-              className="block w-full px-3 py-2 border border-gray-300 rounded-md"
+              style={{
+                backgroundColor: 'var(--primary-white)',
+                color: 'var(--dark-grey)',
+                border: '1px solid var(--light-grey)',
+                padding: '0.5rem 1rem',
+                borderRadius: '0.375rem',
+                width: '75%',
+                boxSizing: 'border-box',
+              }}
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
             />

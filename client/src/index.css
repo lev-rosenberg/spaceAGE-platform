@@ -64,6 +64,11 @@ p {
   color: var(--primary-white);
 }
 
+.btn-disabled {
+  opacity: 0.5; /* Make it look disabled */
+  cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+}
+
 button {
   background-color: var(--primary-white);
   width: fit-content;

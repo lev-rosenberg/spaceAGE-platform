@@ -10,7 +10,7 @@ export function Likert({
 }) {
   return (
     <div className="w-100">
-      <label className={labelClassName}>
+      <label className={`${labelClassName} block w-full`}>
         To what extent do you enjoy working with <strong>{partnerName}</strong>?
       </label>
       <SliderInput
