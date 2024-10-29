@@ -119,6 +119,7 @@ export function RoleExploration () {
       // if the notes haven't changed, don't update
       if (isEqual(localTextNotes, player.get('locationTextNotes')) && isEqual(localSliderNotes, player.get('locationSliderNotes'))) {
         dispatch({ type: 'SET_CLICKED', payload: newLocation })
+        // console.log(localTextNotes)
       } else {
         // otherwise, update the notes and add the location to the visited list
         // set 0.5 sec timer to allow the map to zoom out before updating the notes

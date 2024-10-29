@@ -19,6 +19,7 @@ export function Notes ({ handleReturnToFullSize }) {
   */
   const player = usePlayer()
   const serverSideSliderNotes = player.get('locationSliderNotes')
+  const serverSideTextNotes = player.get('locationTextNotes')
   const stage = useStage()
   const { state, dispatch } = useContext(Context)
   const { clicked, locationCoords, localTextNotes, localSliderNotes } = state
@@ -32,6 +33,9 @@ export function Notes ({ handleReturnToFullSize }) {
     */
     if (Object.keys(localSliderNotes).length === 0) {
       dispatch({ type: 'SET_LOCATION_SLIDER_NOTES', payload: serverSideSliderNotes })
+    }
+    if (Object.keys(localTextNotes).length === 0) {
+      dispatch({ type: 'SET_LOCATION_TEXT_NOTES', payload: serverSideTextNotes })
     }
     if (!clicked) {
       dispatch({ type: 'SET_CLICKED', payload: locationCoords[0].name })
@@ -52,12 +56,12 @@ export function Notes ({ handleReturnToFullSize }) {
         3. In either case (Role Exploration or not), set the clicked location to the location clicked
     */
     if (location.name === clicked) { return }
-    if (stage.get('name') === 'Role Exploration') {
-      handleReturnToFullSize(location.name)
+    // if (stage.get('name') === 'Role Exploration') {
+    handleReturnToFullSize(location.name)
       // dispatch({ type: 'SET_CLICKED', payload: location.name })
-    } else {
-      dispatch({ type: 'SET_CLICKED', payload: location.name })
-    }
+    // } else {
+    //   dispatch({ type: 'SET_CLICKED', payload: location.name })
+    // }
   }
 
   function handleLocalChange (type, payload) {
@@ -70,7 +74,7 @@ export function Notes ({ handleReturnToFullSize }) {
         1. If we are not in the Role Exploration stage, return (THIS MIGHT CHANGE IN THE FUTURE)
         2. Dispatch the action
     */
-    if (stage.get('name') !== 'Role Exploration') { return }
+    //if (stage.get('name') !== 'Role Exploration') { return }
     dispatch({ type, payload })
   }
 
@@ -87,9 +91,9 @@ export function Notes ({ handleReturnToFullSize }) {
           </Button>
         ))}
       </div>
-      <h3 className='mb-2'>Rank {clicked} on the following factors:</h3>
+      <h3 className='mb-2'>Rate {clicked} on the following factors:</h3>
       <form
-        disabled={true}
+        disabled={false}
         >
         <div className='flex flex-col gap-2 mb-3'>
           {Object.keys(localSliderNotes).length !== 0 &&
@@ -98,7 +102,13 @@ export function Notes ({ handleReturnToFullSize }) {
                 key={i}
                 value={localSliderNotes[clicked][slider]}
                 label={slider}
-                handleChange={(e) => handleLocalChange('SET_LOCATION_SLIDER_NOTES', { ...localSliderNotes, [clicked]: { ...localSliderNotes[clicked], [slider]: e.target.value } })}
+                handleChange={(e) => {
+                    handleLocalChange('SET_LOCATION_SLIDER_NOTES', { ...localSliderNotes, [clicked]: { ...localSliderNotes[clicked], [slider]: e.target.value } });
+                    // console.log(player.get('locationSliderNotes'));
+                    // player.set('locationSliderNotes', localSliderNotes);
+                }
+
+              }
               />
             ))
           }
@@ -106,9 +116,14 @@ export function Notes ({ handleReturnToFullSize }) {
         <TextInput
           className='w-full h-32'
           value={localTextNotes[clicked]}
-          disabled={stage.get('name') !== 'Role Exploration'}
-          area
-          handleChange={(e) => handleLocalChange('SET_LOCATION_TEXT_NOTES', { ...localTextNotes, [clicked]: e.target.value })}
+          label='localSliderNotesLabel'
+          placeholder={'Notes about '+clicked}
+          // area
+          handleChange={(e) => {
+            handleLocalChange('SET_LOCATION_TEXT_NOTES', { ...localTextNotes, [clicked]: e.target.value });
+            console.log('Input value changed:', player.get('locationTextNotes'));
+            // player.set('locationTextNotes', localTextNotes);
+          }}
         />
       </form>
     </div>

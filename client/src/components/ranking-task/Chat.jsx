@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Loading } from '@empirica/core/player/react'
-import { usePlayer } from '@empirica/core/player/classic/react'
+import { useStage, usePlayer } from '@empirica/core/player/classic/react'
 import { ChatBot } from './ChatBot'
 import LinearProgress from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
@@ -17,64 +17,17 @@ export function Chat({
   const [sageMessage, setSageMessage] = useState('');
   const [isThinking, setIsThinking] = useState(false);
 
-  // State to ensure Sage message is set only once
-  const [messageDisplayed, setMessageDisplayed] = useState(false);
-
-  // Method to clear messages: NOT WORKING RIGHT NOW
-  const clearMessages = () => {
-    if (scope && typeof scope.set === 'function') {
-      scope.set(attribute, []); // Use scope.set to clear messages
-    } else {
-      console.error('Scope is not properly initialized or does not support setting attributes.');
-    }
-  };
-
-  
-  useEffect(() => {
-    if (currentStage === 'Multi-Team Ranking' && !messageDisplayed) {
-      fetch('/sage-blurb.json')
-        .then((response) => response.json())
-        .then((data) => {
-          const existingMessages = scope.get(attribute) || [];
-          const sageMessageExists = existingMessages.some(
-            (msg) => msg.text === data.welcomeMessage && msg.sender.name === 'Sage'
-          );
-
-          if (!sageMessageExists) {
-            setSageMessage(data.welcomeMessage);
-            scope.append(attribute, {
-              text: data.welcomeMessage,
-              sender: {
-                id: 'system_message_id',
-                name: 'Sage'
-              }
-            });
-            setMessageDisplayed(true);
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching sage message:', error);
-        });
-    }
-
-    // Clear chat history when transitioning to MTS
-    if (currentStage === 'Multi-Team Ranking') {
-      clearMessages();
-    }
-
-  }, [includeAI, currentStage, messageDisplayed]);
-
   if (!scope || !player) {
     return <LoadingComp />;
   }
 
-  const handleNewMessage = (text) => {
+  const handleNewMessage = (text) => {  
     scope.append(attribute, {
       text,
       sender: {
         id: player.id,
         name: player.get('name') || player.id,
-        avatar: player.get('avatar')
+        avatar: player.get('avatar'),
       }
     });
   };
@@ -129,7 +82,7 @@ export function Chat({
 
 
 function Messages (props) {
-  const { msgs } = props
+  const { msgs } = props 
   const scroller = useRef(null)
   const [msgCount, setMsgCount] = useState(0)
 

@@ -2,6 +2,7 @@ import { ClassicListenersCollector } from '@empirica/core/admin/classic'
 export const Empirica = new ClassicListenersCollector()
 
 Empirica.onGameStart(({ game }) => {
+  
   /*
     1. Fill round with 6 stages --> Instructions, Role Exploration, Indivudual, Team, MTS, AI Variation.
       a. AI intervention placement depends on the interventionPlacement treatment condition.
@@ -14,7 +15,7 @@ Empirica.onGameStart(({ game }) => {
       b. team rankings held in round.get('<team-acronym>-team-ranking')
       c. mts rankings held in round.get('mts-ranking')
     4. Set the initial location notes for each player.
-      a. locationTextNotes: { location: '' }
+      a. locationTextNotes: { location: '' } 
       b. locationSliderNotes: { location: { sliderVal: 0, sliderVal: 0, sliderVal: 0} }
   */
   const treatment = game.get('treatment')
@@ -23,13 +24,13 @@ Empirica.onGameStart(({ game }) => {
   // 1: Create the round and stages
   const round = game.addRound({ name: 'Round' })
   // round.addStage({ name: 'Instructions', duration: 120 })
-  round.addStage({ name: 'Role Exploration', duration: 600 })
-  round.addStage({ name: 'Individual Ranking', duration: 600 })
-  if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 6000 })
-  round.addStage({ name: 'Team Ranking', duration: 600 })
-  if (interventionPlacement === 'team') round.addStage({ name: 'intervention', placement: 'Team Ranking', duration: 600 })
-  round.addStage({ name: 'Multi-Team Ranking', duration: 600 })
-  if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'Multi-Team Ranking', duration: 600 })
+  round.addStage({ name: 'Role Exploration', duration: 20 })
+  round.addStage({ name: 'Individual Ranking', duration: 20 })
+  if (interventionPlacement === 'individual') round.addStage({ name: 'intervention', placement: 'Individual Ranking', duration: 20 })
+  round.addStage({ name: 'Team Ranking', duration: 20 })
+  if (interventionPlacement === 'team') round.addStage({ name: 'intervention', placement: 'Team Ranking', duration: 20 })
+  round.addStage({ name: 'Multi-Team Ranking', duration: 20 })
+  if (interventionPlacement === 'mts') round.addStage({ name: 'intervention', placement: 'Multi-Team Ranking', duration: 20 })
 
   // 2: Assign roles and teams.
   const possibleRoles = ['Water Specialist', 'Geology Scientist', 'Atmospheric Specialist', 'Climate Scientist', 'Terrain Specialist', 'Life Scientist']
@@ -38,7 +39,7 @@ Empirica.onGameStart(({ game }) => {
   for (const player of players) {
     let role
     if (aiVariation === 'wizard' && player.get('participantIdentifier').includes('AI-WIZARD')) { //
-      role = aiRoles.pop()
+      role = aiRoles.pop() // if ai variation is wizard and player's identifier includes ai-wizard, assign ai role 
       player.set('role', role)
     } else {
       const i = (players.indexOf(player) - (2 - aiRoles.length)) % possibleRoles.length // loop back through the beginning
@@ -101,9 +102,29 @@ Empirica.onRoundStart(({ round }) => {
   round.set('mts-confidence', 0)
 })
 
-Empirica.onStageStart(({ stage }) => {})
+Empirica.onStageStart(({ stage }) => {
+  console.log(`Stage started: ${stage.get("name")}`);
+  if (stage.get("name") === "intervention") {
+      stage.append("chat", { // note: maybe do hardcode chat-teamid
+        text: "Hi team! I'm Sage, your AI team member. After analyzing the data and team dynamics, I recommend choosing Eredania as the landing location for the mission. What are your thoughts?",
+        sender: {
+          id: 'system_message_id',
+          name: 'Sage'
+        }
+      });
+    } else {
+    }
+  }
+)
 
-Empirica.onStageEnded(({ stage }) => {})
+Empirica.onStageEnded(({ stage, game }) => {
+  // const players = game.players
+//   TODO: force dump sliders and notes a.k.a. handleReturnToFullSize
+//   for (const player of players) {
+    // player.set('locationTextNotes', localTextNotes)
+    // player.set('locationSliderNotes', localSliderNotes)
+  // }
+})
 
 Empirica.onRoundEnded(({ round }) => {})
 
